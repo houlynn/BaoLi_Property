@@ -1,6 +1,5 @@
 package com.model.hibernate.system;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,15 +10,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
-
 import com.ufo.framework.annotation.FieldInfo;
 import com.ufo.framework.annotation.TableInfo;
 import com.ufo.framework.common.model.Model;
+@javax.persistence.Table(name="sys_ModuleFormScheme")
 @Entity
 @DynamicInsert(true)
 @DynamicUpdate(true)

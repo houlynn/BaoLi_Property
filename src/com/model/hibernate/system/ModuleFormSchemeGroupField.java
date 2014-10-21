@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.DynamicInsert;
@@ -16,6 +17,7 @@ import org.hibernate.annotations.GenericGenerator;
 import com.ufo.framework.annotation.FieldInfo;
 import com.ufo.framework.annotation.TableInfo;
 import com.ufo.framework.common.model.Model;
+@Table(name="sys_ModuleFormSchemeGroupField")
 @Entity
 @DynamicInsert(true)
 @DynamicUpdate(true)

@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.DynamicInsert;
@@ -27,7 +28,7 @@ import com.ufo.framework.common.model.Model;
  * 
  * 
  */
-
+@Table(name="sys_ModuleGridSchemeGroup")
 @Entity
 @DynamicInsert(true)
 @DynamicUpdate(true)

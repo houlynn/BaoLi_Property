@@ -2,6 +2,7 @@
     <wb-module deploy-name="BaoLi_Property">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/config"/>
         <property name="context-root" value="BaoLi_Property"/>
         <property name="java-output-path" value="/BaoLi_Property/build/classes"/>
     </wb-module>

@@ -2,6 +2,7 @@ package com.model.hibernate.system;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.DynamicInsert;
@@ -15,6 +16,7 @@ import com.ufo.framework.common.model.Model;
  * 模块分组类，每一个模块都有一个大类分组
  * 
  */
+@Table(name="sys_ModuleGroup")
 @Entity
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
 @DynamicInsert(true)

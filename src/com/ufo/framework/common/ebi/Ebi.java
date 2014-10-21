@@ -5,9 +5,10 @@ import java.util.List;
 
 import org.hibernate.jdbc.Work;
 
+import com.ufo.framework.common.log.LogerManager;
 import com.ufo.framework.common.model.Model;
 
-public interface Ebi {
+public interface Ebi extends LogerManager {
 
 	/**
 	 * 根据ID加载一个实体

@@ -1,6 +1,8 @@
 package com.ufo.framework.common.model;
 
-public interface Model {
+import java.io.Serializable;
+
+public interface Model  extends Serializable{
 	
 
 }

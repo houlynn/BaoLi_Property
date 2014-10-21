@@ -8,6 +8,8 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.model.hibernate.system.MenuGroup;
 import com.model.hibernate.system.Module;
+import com.model.hibernate.system.ServiceInfo;
+import com.model.hibernate.system.SystemInfo;
 /**
  * 用于向客户端返回系统的模块信息和登录人员的信息的类
  *

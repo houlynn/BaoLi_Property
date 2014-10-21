@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.Table;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.DynamicInsert;
@@ -23,39 +24,31 @@ import com.ufo.framework.common.model.Model;
   @version 1.0
  */
 @Entity
+@Table(name="sys_MenuGroup")
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
 @DynamicInsert(true)
 @DynamicUpdate(true)
 @TableInfo(group = "系统模块", id = 9920, title = "菜单分组")
 public class MenuGroup implements Model {
-
 	@Id
 	@FieldInfo(title = "顺序号", remark = "菜单分组按顺序号显示在菜单条上", number = 10)
 	@Column(length = 10, nullable = false)
 	private String tf_menuGroupId;
-
 	@FieldInfo(title = "分组名称", uniqueField = true, number = 20)
 	@Column(length = 50, nullable = false)
 	private String tf_title;
-
 	@FieldInfo(title = "展开", remark = "在树状菜单下默认是否展开", number = 30)
 	private Boolean tf_expand;
-
 	@FieldInfo(title = "图标glyph", number = 40)
 	private Boolean tf_glyph;
-
 	@FieldInfo(title = "图标文件名", remark = "图标放置于/images/module/目录下", number = 50)
 	@Column(length = 50)
 	private String tf_iconURL;
-
 	@FieldInfo(title = "分组描述", number = 60)
 	@Column(length = 50)
 	private String tf_description;
-
 	@FieldInfo(title = "备注", number = 70)
 	private String tf_remark;
-
-	
 	@OneToMany(targetEntity = MenuModule.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "tf_menuGroupId")
 	@OrderBy("tf_orderId")

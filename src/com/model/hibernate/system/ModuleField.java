@@ -6,6 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -23,6 +24,7 @@ import com.ufo.framework.common.model.Model;
 * @date 2014年10月20日
   @version 1.0
  */
+@Table(name="sys_ModuleField")
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
 @Entity
 @DynamicInsert(true)

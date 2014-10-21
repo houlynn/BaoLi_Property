@@ -1,24 +1,58 @@
-package com.model.app.common;
+package com.model.hibernate.system;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
+import com.ufo.framework.annotation.TableInfo;
+
+@Entity
+@Table(name="sys_ServiceInfo")
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
+@DynamicInsert(true)
+@DynamicUpdate(true)
+@TableInfo(group = "系统模块", id = 9911, title = "使用单位信息")
 @SuppressWarnings("serial")
 // 这是服务单位情况的设置，也是放在数据库里的，可以进行修改
 public class ServiceInfo implements Serializable {
 
+	@Id
+	@Column(nullable = false, length = 10)
+	private String tf_serviceId;
+	@Column(nullable = false, length = 80)
 	private String tf_serviceDepartment;// 服务单位
+	@Column(nullable = false, length = 50)
 	private String tf_serviceMen;// 服务人员
+	@Column(nullable = false, length = 50)
 	private String tf_serviceTelnumber;// 联系电话
+	@Column(nullable = false, length = 50)
 	private String tf_serviceFaxnumber;// 传真
+	@Column(nullable = false, length = 50)
 	private String tf_serviceEmail;// 电子邮件
+	@Column(nullable = false, length = 50)
 	private String tf_serviceHomepage;// 主页
+	@Column(nullable = false, length = 50)
 	private String tf_serviceQQ;// ＱＱ号
+	@Column(nullable = false, length = 50)
 	private String tf_copyrightOwner;// 版权所有单位
+	@Column(nullable = false, length = 250)
 	private String tf_copyrightInfo;// 版权信息
-
 	public ServiceInfo() {
 
+	}
+	public String getTf_serviceId() {
+		return tf_serviceId;
+	}
+
+	public void setTf_serviceId(String tf_serviceId) {
+		this.tf_serviceId = tf_serviceId;
 	}
 
 	public String getTf_serviceDepartment() {

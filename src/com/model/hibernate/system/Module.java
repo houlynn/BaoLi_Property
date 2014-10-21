@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -18,6 +19,7 @@ import com.ufo.framework.annotation.FieldInfo;
 import com.ufo.framework.annotation.TableInfo;
 import com.ufo.framework.common.model.Model;
 @Entity
+@Table(name="sys_Module")
 @DynamicInsert(true)
 @DynamicUpdate(true)
 @TableInfo(group = "系统模块", id = 9902, title = "系统模块")

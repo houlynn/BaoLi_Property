@@ -23,6 +23,9 @@ import com.ufo.framework.common.model.Model;
 @Repository
 public class HibernateRepertory implements CommonIrpertory {
 
+	public HibernateRepertory() {
+		debug(this.getClass().getName());
+	}
 	private SessionFactory sf;
 	
 	@Autowired

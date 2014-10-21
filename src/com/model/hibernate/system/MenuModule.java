@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -24,6 +25,7 @@ import com.ufo.framework.common.model.Model;
   @version 1.0
  */
 @Entity
+@Table(name="sys_MenuModule")
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
 @DynamicInsert(true)
 @DynamicUpdate(true)
