@@ -18,7 +18,7 @@ public class ApplicationController {
 	@Resource
 	private ApplicationService applicationService;
 
-	@RequestMapping("/applicationinfo.do")
+	@RequestMapping("/applicationinfo")
 	public synchronized @ResponseBody
 	ApplicationInfo getApplicationInfo(HttpServletRequest request) {
 		return applicationService.getApplicationInfo(request);

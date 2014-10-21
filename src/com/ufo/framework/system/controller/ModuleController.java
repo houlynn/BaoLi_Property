@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.model.hibernate.system.Module;
 import com.ufo.framework.common.core.web.ModuleServiceFunction;
+import com.ufo.framework.common.log.LogerManager;
 import com.ufo.framework.system.ebo.ApplicationService;
 import com.ufo.framework.system.ebo.ModuleService;
 import com.ufo.framework.system.repertory.ModuleDAO;
@@ -39,7 +40,11 @@ import com.ufo.framework.system.shared.module.DataUpdateResponseInfo;
 * @date 2014年10月21日
   @version 1.0
  */
-public class ModuleController {
+public class ModuleController implements LogerManager {
+
+	public ModuleController() {
+		debug(this.getClass().getName());
+	}
 
 	@Resource
 	private SystemBaseDAO systemBaseDAO;
@@ -55,7 +60,7 @@ public class ModuleController {
 	/**
 	 * 根据前台的请求取得数据
 	 */
-	@RequestMapping(value = "/fetchdata.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/fetchdata", method = RequestMethod.GET)
 	public @ResponseBody
 	Map<String, Object> fetchData(String moduleName, Integer start, Integer limit, String sort,
 			String query, String columns, String navigates, String parentFilter,

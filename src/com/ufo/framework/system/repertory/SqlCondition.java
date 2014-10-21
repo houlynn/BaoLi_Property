@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class SqlCondition {
 
+
 	private String moduleName; // 模块名称
 	private String tableAsName; // table as name
 	private String primarykey; // 模块的主键，一般的条件都加在主键之上
@@ -18,7 +19,7 @@ public class SqlCondition {
 	private List<String> inValues; // 主键是in的
 
 	public SqlCondition() {
-
+          System.out.println("===========SqlCondition=====================");
 	}
 
 	public String getCondition() {
