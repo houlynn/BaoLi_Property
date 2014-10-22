@@ -4,9 +4,7 @@
 Ext.define('core.app.view.main.region.Center', {
 	extend : 'Ext.tab.Panel',
 	alias : 'widget.maincenter',
-	//requires : ['Ext.ux.TabReorderer'],	
 	uses : ['core.app.view.main.region.HomePage'],
-
 	closeAction : 'hide',
 	autoDestroy : false,
 	tabPosition : 'top',
@@ -76,7 +74,7 @@ Ext.define('core.app.view.main.region.Center', {
 				menu.down('#maxtab').setValue(8);// Jfok.system.getMaxTab());
 			}
 		}
-	}/*, Ext.create('Ext.ux.TabReorderer')*/],
+	}, Ext.create('Ext.ux.TabReorderer')],
 
 	initComponent : function() {
 

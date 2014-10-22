@@ -8,22 +8,23 @@
  */
 Ext.define('core.app.view.main.Main', {
 			extend : 'Ext.container.Container',
-
 			xtype : 'app-main',
-			requires:['core.app.view.main.MainController','core.app.view.main.MainModel'],
-			uses : ['core.app.view.main.region.Center', 'core.app.view.main.region.Top',
+			requires:['core.app.view.main.MainModel'],
+		//	uses:['core.app.view.main.region.Center'],
+		/*	uses : ['core.app.view.main.region.Center', 'core.app.view.main.region.Top',
 					'core.app.view.main.region.Bottom', 'core.app.view.main.menu.MainMenuToolbar',
-					'core.app.view.main.region.Left' ],
-
-			controller : 'main',
+					'core.app.view.main.region.Left'],*/
+			uses:['core.app.view.main.region.Top','core.app.view.main.region.Bottom','core.app.view.main.menu.MainMenuToolbar','core.app.view.main.region.Left'],
+			//controller : 'main',
 			// MVVM架构的控制器的名称，会在当前路径中根据‘Main’ + Controller 来确定文件名
 			// 这个我没找到其他任何可以自动加载MainController.js的依据，只能作上面的判断了
 			viewModel : {
-				type : 'main'
+				//type : 'main'
 				// MVVM架构的viewModel的类型，会在当前路径中根据‘Main’ + Model 来确定文件名
 			},
 
 			initComponent : function() {
+				alert(0);
 				Ext.setGlyphFontFamily('FontAwesome'); // 设置图标字体文件，只有设置了以后才能用glyph属性
 				
 				// 在此处取得各个modelView的参数，通过ajax也行
@@ -44,7 +45,7 @@ Ext.define('core.app.view.main.Main', {
 				}
 			},
 
-			items : [{
+			items : [/*{
 						xtype : 'maintop',
 						region : 'north' // 把他放在最顶上
 					}, {
@@ -72,5 +73,5 @@ Ext.define('core.app.view.main.Main', {
 					}, {
 						region : 'center', // 中间面版
 						xtype : 'maincenter'
-					}]
+					}*/]
 		});

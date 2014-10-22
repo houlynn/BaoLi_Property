@@ -7,7 +7,7 @@ Ext.define('core.app.view.module.window.BaseWindow', {
 			extend : 'Ext.window.Window',
 			alias : 'widget.basewindow',
 
-			uses : ['app.view.module.form.BaseForm'],
+			uses : ['core.app.view.module.form.BaseForm'],
 
 			layout : 'fit',
 			maximizable : true,

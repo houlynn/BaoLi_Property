@@ -4,7 +4,7 @@
  */
 
 Ext.define('core.app.ux.GridSearchField', {
-			extend : 'Ext.ux.form.SearchField',
+		   extend : 'Ext.ux.form.SearchField',
 			alias : 'widget.gridsearchfield',
 			focusWidth : 120,
 			blurWidth : 60,

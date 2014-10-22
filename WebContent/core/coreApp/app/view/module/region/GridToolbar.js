@@ -4,7 +4,7 @@
 Ext.define('core.app.view.module.region.GridToolbar', {
 			extend : 'Ext.toolbar.Toolbar',
 			alias : 'widget.gridtoolbar',
-			uses : ['app.ux.GridSearchField'],
+			uses : ['core.app.ux.GridSearchField'],
 			initComponent : function() {
 				var viewModel = this.up('modulepanel').getViewModel();
 				this.items = [{

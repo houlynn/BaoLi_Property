@@ -8,11 +8,13 @@
        <script type="text/javascript" src="extjs/ext-all.js"></script> 
        <script type="text/javascript" src="extjs/ext-theme-neptune/build/ext-theme-neptune.js"></script>
        <script type="text/javascript" src="extjs/ext-locale-zh_CN.js"></script>
+      <!--  <script type="text/javascript" src="app/loader.js"></script> -->
        <script type="text/javascript" src="app.js"></script>
 <link type="text/css" rel="stylesheet" href="css/module.css">
 
 <!-- The line below must be kept intact for Sencha Cmd to build your application -->
 <script id="microloader" type="text/javascript" src="bootstrap.js"></script>
+
 
 </head>
 <body></body>

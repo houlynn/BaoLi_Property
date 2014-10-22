@@ -31,7 +31,7 @@ Ext.define('core.app.view.module.Module', {
 
 				var mainmodel = this.up('app-main').getViewModel();
 				this.module = mainmodel.getModuleDefine(this.moduleName);
-				var viewmodel = new Ext.create('app.view.module.ModuleModel', {
+				var viewmodel = new Ext.create('core.app.view.module.ModuleModel', {
 							// 将该模块的定义信息传递给本模块的viewModel
 							module : this.module
 						});

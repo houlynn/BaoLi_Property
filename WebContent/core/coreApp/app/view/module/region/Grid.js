@@ -5,9 +5,9 @@
 Ext.define('core.app.view.module.region.Grid', {
 	extend : 'Ext.grid.Panel',
 	alias : 'widget.modulegrid',
-	uses : ['app.view.module.region.GridToolbar',
-			'app.view.module.factory.ColumnsFactory',
-			'app.view.module.widget.GridSchemeCombo'],
+	uses : ['core.app.view.module.region.GridToolbar',
+			'core.app.view.module.factory.ColumnsFactory',
+			'core.app.view.module.widget.GridSchemeCombo'],
 
 	requires : ['Ext.selection.CellModel', 'Ext.grid.*', 'Ext.data.*',
 			'Ext.util.*'],
