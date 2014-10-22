@@ -24,7 +24,7 @@ import com.ufo.framework.common.model.Model;
   @version 1.0
  */
 @Entity
-@Table(name="sys_MenuGroup")
+@Table(name="_MenuGroup")
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
 @DynamicInsert(true)
 @DynamicUpdate(true)

@@ -21,7 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
 import com.ufo.framework.annotation.FieldInfo;
 import com.ufo.framework.annotation.TableInfo;
 import com.ufo.framework.common.model.Model;
-@Table(name="sys_ModuleFormSchemeGroup")
+@Table(name="_ModuleFormSchemeGroup")
 @Entity
 @DynamicInsert(true)
 @DynamicUpdate(true)

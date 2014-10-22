@@ -2,8 +2,10 @@ package com.ufo.framework.system.irepertory;
 
 import java.util.List;
 
+import com.ufo.framework.common.log.LogerManager;
+
 @SuppressWarnings("rawtypes")
-public interface ISystemBaseDAO {
+public interface ISystemBaseDAO  extends LogerManager{
 
 	/**
 	 * 新增一条记录

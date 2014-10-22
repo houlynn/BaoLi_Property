@@ -1,0 +1,4 @@
+SearchField
+TabReorderer
+app.view.module.controller.ToolbarController
+app.view.module.ModuleController

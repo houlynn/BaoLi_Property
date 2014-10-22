@@ -64,7 +64,7 @@ public class SystemFrameDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<ModuleField> get_ModuleFields(String moduleId) {
-		Session session = systemBaseDAO.getSessionFactory().openSession();
+		Session session = systemBaseDAO.getSf().getCurrentSession();
 		Criteria criteria = session.createCriteria(ModuleField.class);
 		Criteria moduleCriteria = criteria.createCriteria("tf_Module");
 		moduleCriteria.add(Restrictions.eq("tf_moduleId", moduleId));
@@ -79,7 +79,7 @@ public class SystemFrameDAO {
 	 * @return
 	 */
 	public Integer getNextGridSchemeOrder(String moduleId) {
-		Session session = systemBaseDAO.getSessionFactory().openSession();
+		Session session = systemBaseDAO.getSf().getCurrentSession();
 		Criteria criteria = session.createCriteria(ModuleGridScheme.class);
 		Criteria moduleCriteria = criteria.createCriteria("tf_Module");
 		moduleCriteria.add(Restrictions.eq("tf_moduleId", moduleId));
@@ -98,7 +98,7 @@ public class SystemFrameDAO {
 	 * @return
 	 */
 	public Integer getMaxModuleFieldId(String moduleId) {
-		Session session = systemBaseDAO.getSessionFactory().openSession();
+		Session session = systemBaseDAO.getSf().getCurrentSession();
 		try {
 			Criteria criteria = session.createCriteria(ModuleField.class);
 			Criteria moduleCriteria = criteria.createCriteria("tf_Module");
@@ -121,7 +121,7 @@ public class SystemFrameDAO {
 	 * @return
 	 */
 	public Integer getNextFormSchemeOrder(String moduleId) {
-		Session session = systemBaseDAO.getSessionFactory().openSession();
+		Session session = systemBaseDAO.getSf().getCurrentSession();
 		Criteria criteria = session.createCriteria(ModuleFormScheme.class);
 		Criteria moduleCriteria = criteria.createCriteria("tf_Module");
 		moduleCriteria.add(Restrictions.eq("tf_moduleId", moduleId));
@@ -141,7 +141,7 @@ public class SystemFrameDAO {
 	 * @param isSelected
 	 */
 	public void addorDeleteGridGroupFields(int gridGroupId, int fieldId, Boolean isSelected) {
-		Session session = systemBaseDAO.getSessionFactory().openSession();
+		Session session = systemBaseDAO.getSf().getCurrentSession();
 		session.beginTransaction();
 		try {
 			Query query = session
@@ -191,7 +191,7 @@ public class SystemFrameDAO {
 	 * @param isSelected
 	 */
 	public void addorDeleteFormGroupFields(int formGroupId, int fieldId, Boolean isSelected) {
-		Session session = systemBaseDAO.getSessionFactory().openSession();
+		Session session = systemBaseDAO.getSf().getCurrentSession();
 		session.beginTransaction();
 		try {
 			Query query = session

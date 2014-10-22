@@ -249,7 +249,7 @@ public class ModuleDAO {
 	public Integer getRecordCount(SqlGenerator generator) {
 
 		String sql = generator.getCountSqlStatement();
-		Session session = systemBaseDAO.getSessionFactory().getCurrentSession();
+		Session session = systemBaseDAO.getSf().getCurrentSession();
 		SQLQuery query = session.createSQLQuery(sql);
 		Integer countInteger = 0;
 		try {
@@ -264,7 +264,7 @@ public class ModuleDAO {
 	public JSONArray getData(SqlGenerator generator, Integer startRow, Integer endRow) {
 
 		String sql = generator.getSqlStatment();
-		Session session = systemBaseDAO.getSessionFactory().getCurrentSession();
+		Session session = systemBaseDAO.getSf().getCurrentSession();
 		SQLQuery query = session.createSQLQuery(sql);
 		if (startRow != -1) {
 			query.setFirstResult(startRow);

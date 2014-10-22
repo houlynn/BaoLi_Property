@@ -28,7 +28,7 @@ import com.ufo.framework.common.model.Model;
  * 
  * 
  */
-@Table(name="sys_ModuleGridSchemeGroup")
+@Table(name="_ModuleGridSchemeGroup")
 @Entity
 @DynamicInsert(true)
 @DynamicUpdate(true)

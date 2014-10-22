@@ -239,7 +239,7 @@ public class ModuleService {
 		DataUpdateResponseInfo result = new DataUpdateResponseInfo();
 		Module module = ApplicationService.getModuleWithName(moduleName);
 
-		Session session = systemBaseDAO.getSessionFactory().getCurrentSession();
+		Session session = systemBaseDAO.getSf().getCurrentSession();
 		// try {
 		Query query = session.createSQLQuery("update " + moduleName + " set "
 				+ module.getTf_primaryKey() + " = :newvalue where " + module.getTf_primaryKey()
@@ -268,7 +268,7 @@ public class ModuleService {
 			// 保存数据之前老的值
 			Object oldRecord = systemBaseDAO.findById(beanClass, id);
 			// 使oldRecord 处于游离状态
-			systemBaseDAO.getHibernateTemplate().evict(oldRecord);
+			systemBaseDAO.getSf().getCurrentSession().evict(oldRecord);
 			Object record = systemBaseDAO.findById(beanClass, id);
 
 			moduleDAO.updateValueToBean(moduleName, record, updateJsonObject);

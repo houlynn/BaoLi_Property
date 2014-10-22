@@ -19,7 +19,7 @@ import com.ufo.framework.annotation.FieldInfo;
 import com.ufo.framework.annotation.TableInfo;
 import com.ufo.framework.common.model.Model;
 @Entity
-@Table(name="sys_Module")
+@Table(name="_Module")
 @DynamicInsert(true)
 @DynamicUpdate(true)
 @TableInfo(group = "系统模块", id = 9902, title = "系统模块")

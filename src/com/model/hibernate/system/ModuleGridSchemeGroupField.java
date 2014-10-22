@@ -25,7 +25,7 @@ import com.ufo.framework.common.model.Model;
  * 
  * 
  */
-@Table(name="sys_ModuleGridSchemeGroupField")
+@Table(name="_ModuleGridSchemeGroupField")
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_EMPTY )
 @Entity
 @DynamicInsert(true)

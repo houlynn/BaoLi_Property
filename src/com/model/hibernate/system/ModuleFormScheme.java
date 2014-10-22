@@ -17,7 +17,7 @@ import org.hibernate.annotations.GenericGenerator;
 import com.ufo.framework.annotation.FieldInfo;
 import com.ufo.framework.annotation.TableInfo;
 import com.ufo.framework.common.model.Model;
-@javax.persistence.Table(name="sys_ModuleFormScheme")
+@javax.persistence.Table(name="_ModuleFormScheme")
 @Entity
 @DynamicInsert(true)
 @DynamicUpdate(true)

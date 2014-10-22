@@ -1,39 +1,41 @@
 package com.ufo.framework.system.repertory;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-
 import net.sf.ezmorph.object.DateMorpher;
 import net.sf.json.util.JSONUtils;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.ufo.framework.system.irepertory.ISystemBaseDAO;
 
 @Repository
 @SuppressWarnings("rawtypes")
-public class SystemBaseDAO extends HibernateDaoSupport implements ISystemBaseDAO {
+public class SystemBaseDAO implements   ISystemBaseDAO {
 
 	@Resource
 	private SessionFactory sf;
 
 	public static SystemBaseDAO systemBaseDAO;
 
+	public SessionFactory getSf() {
+		return sf;
+	}
+
+	public void setSf(SessionFactory sf) {
+		this.sf = sf;
+	}
+
 	@PostConstruct
 	public void InjectedSessionFactory() {
 		//System.out.println("system base dao impl injected sessionFactory");
-		super.setSessionFactory(sf);
 		systemBaseDAO = this;
 	}
 
@@ -45,26 +47,25 @@ public class SystemBaseDAO extends HibernateDaoSupport implements ISystemBaseDAO
 		//System.out.println("json tobean dataformats created");
 	}
 
-	private static final Log log = LogFactory.getLog(SystemBaseDAO.class);
 
 	@Override
 	public void save(Object record) {
-		getHibernateTemplate().save(record);
-		log.debug("new record saved:" + record.getClass().getSimpleName() + ":"
+		sf.getCurrentSession().save(record);
+		debug("new record saved:" + record.getClass().getSimpleName() + ":"
 				+ record.toString());
 	}
 
 	@Override
 	public void attachDirty(Object record, Object old) {
-		getHibernateTemplate().saveOrUpdate(record);
-		log.debug("save record:" + record.getClass().getSimpleName() + ":"
+		sf.getCurrentSession().saveOrUpdate(record);
+		debug("save record:" + record.getClass().getSimpleName() + ":"
 				+ record.toString());
 	}
 
 	@Override
 	public void delete(Object record) {
-		getHibernateTemplate().delete(record);
-		log.debug("delete record:" + record.getClass().getSimpleName() + ":"
+		sf.getCurrentSession().delete(record);
+		debug("delete record:" + record.getClass().getSimpleName() + ":"
 				+ record.toString());
 	}
 
@@ -77,9 +78,9 @@ public class SystemBaseDAO extends HibernateDaoSupport implements ISystemBaseDAO
 	public Object findById(String beanClassName, Object id) {
 		Object record;
 		try {
-			record = getHibernateTemplate().get(beanClassName, Integer.parseInt(id.toString()));
+			record = sf.getCurrentSession().get(beanClassName, Integer.parseInt(id.toString()));
 		} catch (Exception e) {
-			record = getHibernateTemplate().get(beanClassName, (Serializable) id);
+			record =sf.getCurrentSession().get(beanClassName, (Serializable) id);
 		}
 		// log.debug("get record " + beanClassName + " key:" + id + ":" + record);
 		return record;
@@ -92,9 +93,13 @@ public class SystemBaseDAO extends HibernateDaoSupport implements ISystemBaseDAO
 
 	@Override
 	public List<?> findAll(String className) {
-		log.debug("find all:" + className);
+		debug("find all:" + className);
 		String queryString = "from " + className;
-		return getHibernateTemplate().find(queryString);
+		List<?> list= sf.getCurrentSession().createQuery(queryString).list();
+		if(list==null){
+			list=new ArrayList<>();
+		}
+		return list;
 	}
 
 	public void setMySessionFactory(SessionFactory mySessionFactory) {
@@ -103,14 +108,19 @@ public class SystemBaseDAO extends HibernateDaoSupport implements ISystemBaseDAO
 
 	@Override
 	public List<?> findAllSort(String beanClassName, String sort, String dir) {
-		log.debug("find all:" + beanClassName + "---sort:" + sort + "--" + dir);
+		debug("find all:" + beanClassName + "---sort:" + sort + "--" + dir);
 		String queryString;
 		if (sort == null || sort.length() == 0)
 			queryString = "from " + beanClassName + " as model ";
 		else
 			queryString = "from " + beanClassName + " as model " + " order by " + sort + " "
 					+ dir;
-		return getHibernateTemplate().find(queryString);
+		List<?> list=sf.getCurrentSession().createQuery(queryString).list();
+		if(list==null){
+			list=new ArrayList<>();
+		}
+		
+		return list;
 	}
 
 	@Override
@@ -124,7 +134,7 @@ public class SystemBaseDAO extends HibernateDaoSupport implements ISystemBaseDAO
 	public List<?> findByPropertyAllSort(String beanClassName, String sort, String dir,
 			String propertyName, Object value, String defaultSort, String defaultDir) {
 
-		log.debug("find all:" + beanClassName + "---sort:" + sort + "--" + dir);
+		debug("find all:" + beanClassName + "---sort:" + sort + "--" + dir);
 
 		if (propertyName.indexOf(".") > 0)
 			return findByPropertyCriteria(beanClassName, sort, dir, propertyName, value,
@@ -146,13 +156,17 @@ public class SystemBaseDAO extends HibernateDaoSupport implements ISystemBaseDAO
 					+ "= ? " + otherFilter + " order by " + sort + " " + dir;
 	
 		//System.out.println(queryString);
+		List<?> list=sf.getCurrentSession().createQuery(queryString).setParameter(0, value).list();
+		if(list==null){
+			list=new ArrayList<>();
+		}
 		
-		return getHibernateTemplate().find(queryString, value);
+		return list;
 	}
 
 	public List<?> findByPropertyCriteria(String beanClassName, String sort, String dir,
 			String propertyName, Object value, String defaultSort, String defaultDir) {
-		Session session = getSessionFactory().openSession();
+		Session session =sf.getCurrentSession();
 		Criteria criteria = session.createCriteria(beanClassName);
 		String[] props = propertyName.split("\\.");
 		Criteria subCriteria = criteria.createCriteria(props[0]);
@@ -222,9 +236,11 @@ public class SystemBaseDAO extends HibernateDaoSupport implements ISystemBaseDAO
 		if (otherCondString != null && otherCondString.length() > 1) {
 			queryString = queryString + " and (" + otherCondString + ")";
 		}
-		List<Object> result = (List<Object>) getHibernateTemplate().find(queryString, value);
-
-		log.debug(String.format("finding %s with property:%s value: %s : record number:%d",
+		 List<?> result= sf.getCurrentSession().createQuery(queryString).setParameter(0, value).list();
+		 if(result==null){
+			 result=new ArrayList<>();
+		 }
+		debug(String.format("finding %s with property:%s value: %s : record number:%d",
 				beanClassName, propertyName, value, result.size()));
 		return result;
 	}
@@ -233,8 +249,12 @@ public class SystemBaseDAO extends HibernateDaoSupport implements ISystemBaseDAO
 	@Override
 	public List<?> findByString(Class<?> className, String value) {
 		String queryString = "from " + className.getSimpleName() + " as model where " + value;
-		List<Object> result = (List<Object>) getHibernateTemplate().find(queryString);
-		log.debug(String.format("finding %s with string:%s : record number:%d",
+		
+		List<Object> result =sf.getCurrentSession().createQuery(queryString).list();
+		if(result==null){
+			result=new ArrayList<>();
+		}
+		debug(String.format("finding %s with string:%s : record number:%d",
 				className.getSimpleName(), value, result.size()));
 		return result;
 
@@ -256,10 +276,13 @@ public class SystemBaseDAO extends HibernateDaoSupport implements ISystemBaseDAO
 		if (otherCondString != null && otherCondString.length() > 1) {
 			queryString = queryString + " and (" + otherCondString + ")";
 		}
+       
+		List<?> result = sf.getCurrentSession().createQuery(queryString).setParameter(0, value).list();
+		if(result==null){
+			result=new ArrayList<>();
+		}
 
-		List<?> result = getHibernateTemplate().find(queryString, value);
-
-		log.debug(String.format(
+		debug(String.format(
 				"finding %s with like property:%s value: %s : record number:%d", beanClassName,
 				propertyName, value, result.size()));
 		return result;

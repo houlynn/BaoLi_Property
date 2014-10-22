@@ -16,7 +16,7 @@ import com.ufo.framework.common.model.Model;
  * 模块分组类，每一个模块都有一个大类分组
  * 
  */
-@Table(name="sys_ModuleGroup")
+@Table(name="_ModuleGroup")
 @Entity
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
 @DynamicInsert(true)
