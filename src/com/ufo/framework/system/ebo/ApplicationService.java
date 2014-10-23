@@ -22,6 +22,7 @@ import com.model.hibernate.system.ModuleGridScheme;
 import com.model.hibernate.system.ModuleGridSchemeGroup;
 import com.model.hibernate.system.ServiceInfo;
 import com.model.hibernate.system.SystemInfo;
+import com.ufo.framework.common.core.utils.AppUtils;
 import com.ufo.framework.system.repertory.SystemBaseDAO;
 
 @Service
@@ -41,12 +42,12 @@ public class ApplicationService {
 
 		// 以上内容暂时为自定义的，以后会改为从数据库和登录信息中读取。
 		SystemInfo systemInfo = new SystemInfo();
-		systemInfo.setTf_systemName("自定义的中小型管理系统");
-		systemInfo.setTf_systemVersion("2014.09.28");
+		systemInfo.setTf_systemName("保利物业管理系统");
+		systemInfo.setTf_systemVersion(AppUtils.getCurDate());
 		result.setSystemInfo(systemInfo);
 
 		UserInfo userInfo = new UserInfo();
-		userInfo.setTf_userdwmc("无锡市宏宇电子有限公司");
+		userInfo.setTf_userdwmc("红花会总坛");
 		userInfo.setTf_userStartdate(new Date());
 		userInfo.setTf_userName("管理员");
 		userInfo.setTf_loginName("admin");
@@ -56,15 +57,15 @@ public class ApplicationService {
 		result.setUserInfo(userInfo);
 
 		ServiceInfo serviceInfo = new ServiceInfo();
-		serviceInfo.setTf_serviceDepartment("熙旺公司");
-		serviceInfo.setTf_serviceMen("蒋锋");
+		serviceInfo.setTf_serviceDepartment("广州英趣科技有限公司");
+		serviceInfo.setTf_serviceMen("独孤厚玲");
 		serviceInfo.setTf_serviceTelnumber("1320528xxxx");
 		serviceInfo.setTf_serviceFaxnumber("0510-88888888");
 		serviceInfo.setTf_serviceQQ("7858xxxx");
-		serviceInfo.setTf_serviceEmail("jfok1972@qq.com");
+		serviceInfo.setTf_serviceEmail("houlynn@gzinterest.com");
 		serviceInfo.setTf_serviceHomepage("www.www.net");
-		serviceInfo.setTf_copyrightInfo("熙旺公司版权所有");
-		serviceInfo.setTf_copyrightOwner("熙旺软件");
+		serviceInfo.setTf_copyrightInfo("广州英趣信息科技有限公司");
+		serviceInfo.setTf_copyrightOwner("精英软件");
 
 		result.setServiceInfo(serviceInfo);
 

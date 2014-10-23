@@ -4,7 +4,7 @@
 Ext.define('core.app.view.main.region.Center', {
 	extend : 'Ext.tab.Panel',
 	alias : 'widget.maincenter',
-	uses : ['core.app.view.main.region.HomePage'],
+	uses : ['core.app.view.main.region.HomePage',,'Ext.ux.TabCloseMenu'],
 	closeAction : 'hide',
 	autoDestroy : false,
 	tabPosition : 'top',

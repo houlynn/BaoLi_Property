@@ -9,17 +9,16 @@
 Ext.define('core.app.view.main.Main', {
 			extend : 'Ext.container.Container',
 			xtype : 'app-main',
-			requires:['core.app.view.main.MainModel'],
-		//	uses:['core.app.view.main.region.Center'],
-		/*	uses : ['core.app.view.main.region.Center', 'core.app.view.main.region.Top',
+			requires:['core.app.view.main.MainModel','core.app.view.main.MainController'],
+		uses : [/*'core.app.view.main.region.Center',*/ 'core.app.view.main.region.Top',
 					'core.app.view.main.region.Bottom', 'core.app.view.main.menu.MainMenuToolbar',
-					'core.app.view.main.region.Left'],*/
-			uses:['core.app.view.main.region.Top','core.app.view.main.region.Bottom','core.app.view.main.menu.MainMenuToolbar','core.app.view.main.region.Left'],
-			//controller : 'main',
+					'core.app.view.main.region.Left'],
+			//uses:['core.app.view.main.region.Top','core.app.view.main.region.Bottom','core.app.view.main.menu.MainMenuToolbar','core.app.view.main.region.Left'],
+			controller : 'main',
 			// MVVM架构的控制器的名称，会在当前路径中根据‘Main’ + Controller 来确定文件名
 			// 这个我没找到其他任何可以自动加载MainController.js的依据，只能作上面的判断了
 			viewModel : {
-				//type : 'main'
+				type : 'main'
 				// MVVM架构的viewModel的类型，会在当前路径中根据‘Main’ + Model 来确定文件名
 			},
 

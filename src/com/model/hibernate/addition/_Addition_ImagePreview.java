@@ -1,6 +1,5 @@
 package com.model.hibernate.addition;
 
-import java.io.Serializable;
 import java.sql.Blob;
 
 import javax.persistence.Column;
