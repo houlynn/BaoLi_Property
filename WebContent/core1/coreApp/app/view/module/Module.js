@@ -38,8 +38,8 @@ Ext.define('core.app.view.module.Module', {
 				this.setViewModel(viewmodel);
 
 				this.glyph = this.getViewModel().get('tf_glyph'); // 由于上面的glyph的bind无效，因此需要在这里加入glyph的设置
-				this.model = app.view.module.factory.ModelFactory.getModelByModule(this.module);
-				this.store = Ext.create('app.store.GridStore', {
+				this.model =core.app.view.module.factory.ModelFactory.getModelByModule(this.module);
+				this.store = Ext.create('core.app.store.GridStore', {
 							module : this.module,
 							model : this.model,
 							modulePanel : this

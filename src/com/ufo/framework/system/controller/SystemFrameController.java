@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ufo.framework.annotation.TableInfo;
+import com.ufo.framework.common.core.utils.ClassUtil;
 import com.ufo.framework.common.core.web.ModuleServiceFunction;
 import com.ufo.framework.system.ebo.SystemFrameService;
 
@@ -28,6 +29,7 @@ public class SystemFrameController {
 	// @Override
 	public @ResponseBody
 	String addModuleWithName(String moduleName) {
+	
 		Class<?> moduleClass = ModuleServiceFunction.getModuleBeanClass(moduleName);
 		if (moduleClass == null)
 			return "未在指定的包中找到类:" + moduleName + "!";

@@ -1,16 +1,19 @@
 package com.ufo.framework.common.core.web;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.springframework.dao.DataAccessException;
 
 import com.model.hibernate.system.Module;
+import com.ufo.framework.common.core.utils.ClassUtil;
 import com.ufo.framework.system.ebo.ApplicationService;
 
 import ognl.Ognl;
@@ -33,8 +36,12 @@ public class ModuleServiceFunction {
 		return beanDirs;
 	}
 
+	public static void main(String[] args) {
+		getModuleBeanClass(null);
+	}
+	
 	public static Class<?> getModuleBeanClass(String moduleName) {
-		Class<?> moduleClass = null;
+/*		Class<?> moduleClass = null;
 		for (String dir : getBeanDirs()) {
 			try {
 				moduleClass = Class.forName(dir + "." + moduleName);
@@ -44,9 +51,29 @@ public class ModuleServiceFunction {
 		}
 		if (moduleClass == null)
 			System.out.println("未找到：" + moduleName + "的定义文件");
+		return moduleClass;*/
+		Class<?> moduleClass = null;
+		try {
+			List<String> clazzs=ClassUtil.getClassName("com.model.hibernate", true).parallelStream()
+					.filter(item->item.substring(item.lastIndexOf(".")+1).equals(moduleName)).collect(Collectors.toList());
+			if(clazzs!=null&&clazzs.size()>0){
+				moduleClass=Class.forName(clazzs.get(0));
+			}
+			
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if (moduleClass == null)
+			System.out.println("未找到：" + moduleName + "的定义文件");
 		return moduleClass;
 	}
 
+	
 	/**
 	 * 根据包名，取得该包下的下一级目录的名字，没有考虑递归
 	 * 
