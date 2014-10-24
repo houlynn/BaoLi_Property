@@ -62,6 +62,11 @@ public class SystemFrameDAO {
 
 
 
+	/**
+	 * 
+	 * @param moduleId
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public List<ModuleField> get_ModuleFields(String moduleId) {
 		Session session = systemBaseDAO.getSf().getCurrentSession();

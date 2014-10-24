@@ -12,15 +12,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONSerializer;
 import net.sf.json.JsonConfig;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.annotations.Formula;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.model.hibernate.superclass._ApproveAbstract;
 import com.model.hibernate.superclass._AuditingAbstract;
 import com.model.hibernate.superclass._InputInfoAbstract;
@@ -43,9 +46,8 @@ import com.ufo.framework.system.shared.TreeNodeRecordChecked;
 
 
 @Service
-public class SystemFrameService {
+public class SystemFrameService  {
 
-	private static final Log log = LogFactory.getLog(SystemFrameService.class);
 
 	@Resource
 	private SystemBaseDAO systemBaseDAO;
@@ -56,6 +58,7 @@ public class SystemFrameService {
 	@Resource
 	private ModuleDAO moduleDAO;
 
+	
 	/**
 	 * 根据系统类的定义刷新当前模块的字段,在新增一个module 以后也可执行此过程
 	 * 
@@ -478,5 +481,6 @@ public class SystemFrameService {
 		return true;
 
 	}
+
 
 }
