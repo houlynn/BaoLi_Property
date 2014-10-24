@@ -22,7 +22,7 @@ import com.ufo.framework.common.model.Model;
 @DynamicInsert(true)
 @DynamicUpdate(true)
 @TableInfo(group = "系统模块", id = 9909, title = "模块Form字段", shortname = "Form字段")
-public class ModuleFormSchemeGroupField implements Model {
+public class _ModuleFormSchemeGroupField implements Model {
 	@Id
 	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name = "increment", strategy = "increment")
@@ -33,7 +33,7 @@ public class ModuleFormSchemeGroupField implements Model {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "tf_formGroupId", nullable = false)
 	@FieldInfo(title = "模块Form字段分组", number = 20)
-	private ModuleFormSchemeGroup tf_ModuleFormSchemeGroup;
+	private _ModuleFormSchemeGroup tf_ModuleFormSchemeGroup;
 
 	@FieldInfo(title = "顺序号", number = 30)
 	@Column(nullable = false)
@@ -43,7 +43,7 @@ public class ModuleFormSchemeGroupField implements Model {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "tf_fieldId", nullable = false)
 	@FieldInfo(title = "模块字段", uniqueField = true, number = 40)
-	private ModuleField tf_ModuleField;
+	private _ModuleField tf_ModuleField;
 
 	// 这个字段用于将数据转成json传到前台时候，加入moduleField的id
 	@Column(insertable = false, updatable = false)
@@ -61,11 +61,11 @@ public class ModuleFormSchemeGroupField implements Model {
 	@FieldInfo(title = "附加设置", number = 80)
 	private String tf_otherSetting;
 
-	public ModuleFormSchemeGroupField() {
+	public _ModuleFormSchemeGroupField() {
 
 	}
 
-	public ModuleFormSchemeGroupField(Integer formFieldId) {
+	public _ModuleFormSchemeGroupField(Integer formFieldId) {
 		this.tf_formFieldId = formFieldId;
 	}
 
@@ -117,19 +117,19 @@ public class ModuleFormSchemeGroupField implements Model {
 		this.tf_otherSetting = tf_otherSetting;
 	}
 
-	public ModuleFormSchemeGroup getTf_ModuleFormSchemeGroup() {
+	public _ModuleFormSchemeGroup getTf_ModuleFormSchemeGroup() {
 		return tf_ModuleFormSchemeGroup;
 	}
 
-	public void setTf_ModuleFormSchemeGroup(ModuleFormSchemeGroup tf_ModuleFormSchemeGroup) {
+	public void setTf_ModuleFormSchemeGroup(_ModuleFormSchemeGroup tf_ModuleFormSchemeGroup) {
 		this.tf_ModuleFormSchemeGroup = tf_ModuleFormSchemeGroup;
 	}
 
-	public ModuleField getTf_ModuleField() {
+	public _ModuleField getTf_ModuleField() {
 		return tf_ModuleField;
 	}
 
-	public void setTf_ModuleField(ModuleField tf_ModuleField) {
+	public void setTf_ModuleField(_ModuleField tf_ModuleField) {
 		this.tf_ModuleField = tf_ModuleField;
 	}
 

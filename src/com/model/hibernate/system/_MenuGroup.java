@@ -29,7 +29,7 @@ import com.ufo.framework.common.model.Model;
 @DynamicInsert(true)
 @DynamicUpdate(true)
 @TableInfo(group = "系统模块", id = 9920, title = "菜单分组")
-public class MenuGroup implements Model {
+public class _MenuGroup implements Model {
 	@Id
 	@FieldInfo(title = "顺序号", remark = "菜单分组按顺序号显示在菜单条上", number = 10)
 	@Column(length = 10, nullable = false)
@@ -49,12 +49,12 @@ public class MenuGroup implements Model {
 	private String tf_description;
 	@FieldInfo(title = "备注", number = 70)
 	private String tf_remark;
-	@OneToMany(targetEntity = MenuModule.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = _MenuModule.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "tf_menuGroupId")
 	@OrderBy("tf_orderId")
-	private List<MenuModule> tf_menuModules;
+	private List<_MenuModule> tf_menuModules;
 
-	public MenuGroup() {
+	public _MenuGroup() {
 	}
 
 	public String getTf_menuGroupId() {
@@ -105,11 +105,11 @@ public class MenuGroup implements Model {
 		this.tf_remark = tf_remark;
 	}
 
-	public List<MenuModule> getTf_menuModules() {
+	public List<_MenuModule> getTf_menuModules() {
 		return tf_menuModules;
 	}
 
-	public void setTf_menuModules(List<MenuModule> tf_menuModules) {
+	public void setTf_menuModules(List<_MenuModule> tf_menuModules) {
 		this.tf_menuModules = tf_menuModules;
 	}
 

@@ -33,7 +33,7 @@ import com.ufo.framework.common.model.Model;
 @DynamicInsert(true)
 @DynamicUpdate(true)
 @TableInfo(group = "系统模块", id = 9905, title = "模块列表字段分组", shortname = "列表字段分组")
-public class ModuleGridSchemeGroup implements Model {
+public class _ModuleGridSchemeGroup implements Model {
 
 	public static final String GRIDGROUPID = "tf_gridGroupId";
 
@@ -47,7 +47,7 @@ public class ModuleGridSchemeGroup implements Model {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "tf_gridSchemeId", nullable = false)
 	@FieldInfo(title = "模块列表方案", number = 20)
-	private ModuleGridScheme tf_ModuleGridScheme;
+	private _ModuleGridScheme tf_ModuleGridScheme;
 
 	@FieldInfo(title = "顺序号", number = 30)
 	@Column(nullable = false)
@@ -66,16 +66,16 @@ public class ModuleGridSchemeGroup implements Model {
 	@FieldInfo(title = "其他设置", number = 90)
 	private String tf_otherSetting;
 
-	@OneToMany(targetEntity = ModuleGridSchemeGroupField.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = _ModuleGridSchemeGroupField.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "tf_gridGroupId")
 	@OrderBy("tf_gridFieldOrder")
-	private List<ModuleGridSchemeGroupField> tf_groupFields;
+	private List<_ModuleGridSchemeGroupField> tf_groupFields;
 
-	public ModuleGridSchemeGroup() {
+	public _ModuleGridSchemeGroup() {
 
 	}
 
-	public ModuleGridSchemeGroup(Integer tf_gridGroupId) {
+	public _ModuleGridSchemeGroup(Integer tf_gridGroupId) {
 		this.tf_gridGroupId = tf_gridGroupId;
 	}
 
@@ -103,11 +103,11 @@ public class ModuleGridSchemeGroup implements Model {
 		this.tf_gridGroupName = tf_gridGroupName;
 	}
 
-	public List<ModuleGridSchemeGroupField> getTf_groupFields() {
+	public List<_ModuleGridSchemeGroupField> getTf_groupFields() {
 		return tf_groupFields;
 	}
 
-	public void setTf_groupFields(List<ModuleGridSchemeGroupField> tf_groupFields) {
+	public void setTf_groupFields(List<_ModuleGridSchemeGroupField> tf_groupFields) {
 		this.tf_groupFields = tf_groupFields;
 	}
 
@@ -119,11 +119,11 @@ public class ModuleGridSchemeGroup implements Model {
 		this.tf_otherSetting = tf_otherSetting;
 	}
 
-	public ModuleGridScheme getTf_ModuleGridScheme() {
+	public _ModuleGridScheme getTf_ModuleGridScheme() {
 		return tf_ModuleGridScheme;
 	}
 
-	public void setTf_ModuleGridScheme(ModuleGridScheme tf_ModuleGridScheme) {
+	public void setTf_ModuleGridScheme(_ModuleGridScheme tf_ModuleGridScheme) {
 		this.tf_ModuleGridScheme = tf_ModuleGridScheme;
 	}
 

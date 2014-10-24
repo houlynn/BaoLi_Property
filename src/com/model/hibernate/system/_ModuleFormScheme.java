@@ -22,7 +22,7 @@ import com.ufo.framework.common.model.Model;
 @DynamicInsert(true)
 @DynamicUpdate(true)
 @TableInfo(group = "系统模块", id = 9907, title = "模块Form方案", shortname = "Form方案")
-public class ModuleFormScheme implements Model {
+public class _ModuleFormScheme implements Model {
 
 	@Id
 	@GeneratedValue(generator = "increment")
@@ -34,7 +34,7 @@ public class ModuleFormScheme implements Model {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "tf_moduleId", nullable = false)
 	@FieldInfo(title = "模块", number = 20)
-	private Module tf_Module;
+	private _Module tf_Module;
 
 	@FieldInfo(title = "顺序号", number = 30)
 	@Column(nullable = false)
@@ -62,12 +62,12 @@ public class ModuleFormScheme implements Model {
 	@FieldInfo(title = "附加设置", number = 100)
 	private String tf_otherSetting;
 
-	@OneToMany(targetEntity = ModuleFormSchemeGroup.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = _ModuleFormSchemeGroup.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "tf_formSchemeId")
 	@OrderBy("tf_formGroupOrder")
-	private List<ModuleFormSchemeGroup> tf_schemeGroups;
+	private List<_ModuleFormSchemeGroup> tf_schemeGroups;
 
-	public ModuleFormScheme() {
+	public _ModuleFormScheme() {
 
 	}
 
@@ -145,11 +145,11 @@ public class ModuleFormScheme implements Model {
 		this.tf_displayMode = tf_displayMode;
 	}
 
-	public List<ModuleFormSchemeGroup> getTf_schemeGroups() {
+	public List<_ModuleFormSchemeGroup> getTf_schemeGroups() {
 		return tf_schemeGroups;
 	}
 
-	public void setTf_schemeGroups(List<ModuleFormSchemeGroup> tf_schemeGroups) {
+	public void setTf_schemeGroups(List<_ModuleFormSchemeGroup> tf_schemeGroups) {
 		this.tf_schemeGroups = tf_schemeGroups;
 	}
 
@@ -161,11 +161,11 @@ public class ModuleFormScheme implements Model {
 		this.tf_otherSetting = tf_otherSetting;
 	}
 
-	public Module getTf_Module() {
+	public _Module getTf_Module() {
 		return tf_Module;
 	}
 
-	public void setTf_Module(Module tf_Module) {
+	public void setTf_Module(_Module tf_Module) {
 		this.tf_Module = tf_Module;
 	}
 

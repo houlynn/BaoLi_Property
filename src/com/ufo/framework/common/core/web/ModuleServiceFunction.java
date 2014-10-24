@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.dao.DataAccessException;
 
-import com.model.hibernate.system.Module;
+import com.model.hibernate.system._Module;
 import com.ufo.framework.common.core.utils.ClassUtil;
 import com.ufo.framework.system.ebo.ApplicationService;
 
@@ -141,7 +141,7 @@ public class ModuleServiceFunction {
 		// 约束"FK_Project_Global"冲突。该冲突发生于数据库"pm"，表"dbo.Project", column
 		// 'tf_globalId'。
 		if (finder != null) {
-			Module module = ApplicationService.getModuleWithName(finder);
+			_Module module = ApplicationService.getModuleWithName(finder);
 			if (module != null)
 				return "与本记录相关联的『" + module.getTf_title() + "』数据没有全部清空";
 		}

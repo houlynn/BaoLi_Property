@@ -33,7 +33,7 @@ import com.ufo.framework.common.model.Model;
 @DynamicInsert(true)
 @DynamicUpdate(true)
 @TableInfo(group = "系统模块", id = 9904, title = "模块列表方案", shortname = "列表方案")
-public class ModuleGridScheme implements Model {
+public class _ModuleGridScheme implements Model {
 
 	@Id
 	@GeneratedValue(generator = "increment")
@@ -45,7 +45,7 @@ public class ModuleGridScheme implements Model {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "tf_moduleId", nullable = false)
 	@FieldInfo(title = "模块", number = 20)
-	private Module tf_Module;
+	private _Module tf_Module;
 
 	@FieldInfo(title = "顺序号", number = 30)
 	@Column(nullable = false)
@@ -70,12 +70,12 @@ public class ModuleGridScheme implements Model {
 	@FieldInfo(title = "附加设置", number = 90)
 	private String tf_otherSetting;
 
-	@OneToMany(targetEntity = ModuleGridSchemeGroup.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = _ModuleGridSchemeGroup.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "tf_gridSchemeId")
 	@OrderBy("tf_gridGroupOrder")
-	private List<ModuleGridSchemeGroup> tf_schemeGroups;
+	private List<_ModuleGridSchemeGroup> tf_schemeGroups;
 
-	public ModuleGridScheme() {
+	public _ModuleGridScheme() {
 
 	}
 
@@ -86,8 +86,8 @@ public class ModuleGridScheme implements Model {
 	 * @return
 	 */
 	public Boolean isHaveField(Integer fieldId) {
-		for (ModuleGridSchemeGroup schemeGroup : tf_schemeGroups) {
-			for (ModuleGridSchemeGroupField field : schemeGroup.getTf_groupFields())
+		for (_ModuleGridSchemeGroup schemeGroup : tf_schemeGroups) {
+			for (_ModuleGridSchemeGroupField field : schemeGroup.getTf_groupFields())
 				if (field.getTf_ModuleField().getTf_fieldId().equals(fieldId))
 					return true;
 		}
@@ -143,11 +143,11 @@ public class ModuleGridScheme implements Model {
 		this.tf_dblClickAction = tf_dblClickAction;
 	}
 
-	public List<ModuleGridSchemeGroup> getTf_schemeGroups() {
+	public List<_ModuleGridSchemeGroup> getTf_schemeGroups() {
 		return tf_schemeGroups;
 	}
 
-	public void setTf_schemeGroups(List<ModuleGridSchemeGroup> tf_schemeGroups) {
+	public void setTf_schemeGroups(List<_ModuleGridSchemeGroup> tf_schemeGroups) {
 		this.tf_schemeGroups = tf_schemeGroups;
 	}
 
@@ -167,11 +167,11 @@ public class ModuleGridScheme implements Model {
 		this.tf_otherSetting = tf_otherSetting;
 	}
 
-	public Module getTf_Module() {
+	public _Module getTf_Module() {
 		return tf_Module;
 	}
 
-	public void setTf_Module(Module tf_Module) {
+	public void setTf_Module(_Module tf_Module) {
 		this.tf_Module = tf_Module;
 	}
 

@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.SQLQuery;
 
-import com.model.hibernate.system.Module;
-import com.model.hibernate.system.ModuleField;
+import com.model.hibernate.system._Module;
+import com.model.hibernate.system._ModuleField;
 import com.ufo.framework.common.core.web.SortParameter;
 import com.ufo.framework.system.ebo.ApplicationService;
 import com.ufo.framework.system.shared.FieldType;
@@ -33,7 +33,7 @@ public class SqlGenerator {
 	private String[] gridColumnNames;// 当前grid 中显示的字段，如果有文字筛选，则只加在这些字段之上
 	private String searchText; // 加在grid上的search text
 
-	private Module module;
+	private _Module module;
 
 	private SortParameter[] sorts;
 
@@ -45,7 +45,7 @@ public class SqlGenerator {
 		this(ApplicationService.getModuleWithName(moduleName), request);
 	}
 
-	public SqlGenerator(Module module, HttpServletRequest request) {
+	public SqlGenerator(_Module module, HttpServletRequest request) {
 
 		// 是否有不隐藏的字段不允许查看的
 		//userSession = SessionManage.getInstance().getUserSession(request.getSession());
@@ -62,7 +62,7 @@ public class SqlGenerator {
 			getFieldList().add(new SqlField_AdditionCount(module));
 
 		// 加入所有基本类型于sql中
-		for (ModuleField field : module.getTf_fields()) {
+		for (_ModuleField field : module.getTf_fields()) {
 
 				getFieldList().add(
 						new SqlField(module.getTf_moduleName(), module.getTableAsName(), field

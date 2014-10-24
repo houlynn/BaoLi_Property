@@ -22,7 +22,7 @@ import com.ufo.framework.common.model.Model;
 @DynamicInsert(true)
 @DynamicUpdate(true)
 @TableInfo(group = "系统模块", id = 9901, title = "模块分组")
-public class ModuleGroup implements Model {
+public class _ModuleGroup implements Model {
 
 	public static final String TITLE = "tf_title";
 
@@ -44,7 +44,7 @@ public class ModuleGroup implements Model {
 	@FieldInfo(title = "备注", number = 50)
 	private String tf_remark;
 
-	public ModuleGroup() {
+	public _ModuleGroup() {
 
 	}
 

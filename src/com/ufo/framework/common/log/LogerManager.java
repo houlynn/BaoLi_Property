@@ -3,12 +3,6 @@ package com.ufo.framework.common.log;
 import org.apache.log4j.Logger;
 
 import com.ufo.framework.common.core.ext.model.ResultModel;
-/**
- * 
-* @author 作者 yingqu: 
-* @version 创建时间：2014年7月9日 下午3:10:34 
-* version 1.0
- */
 public interface LogerManager {
 
 	public default void info( String msg) {

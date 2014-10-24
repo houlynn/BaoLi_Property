@@ -24,10 +24,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.model.hibernate.system.Module;
+import com.model.hibernate.system._Module;
 import com.ufo.framework.common.core.web.ModuleServiceFunction;
 import com.ufo.framework.common.core.web.SortParameter;
-import com.ufo.framework.system.repertory.ModuleDAO;
+import com.ufo.framework.system.ebi.ModelEbi;
+import com.ufo.framework.system.irepertory.IModelRepertory;
 import com.ufo.framework.system.repertory.SqlModuleFilter;
 import com.ufo.framework.system.repertory.SystemBaseDAO;
 import com.ufo.framework.system.shared.module.DataDeleteResponseInfo;
@@ -39,15 +40,7 @@ import com.ufo.framework.system.shared.module.ModuleFormOperateType;
 import com.ufo.framework.system.shared.module.grid.GridFilterData;
 
 @Service
-public class ModuleService {
-
-	@Resource
-	private SystemBaseDAO systemBaseDAO;
-
-	@Resource
-	private ModuleDAO moduleDAO;
-
-	private static final Log log = LogFactory.getLog(ModuleService.class);
+public class ModuleService extends Ebo implements ModelEbi {
 	public static final int STATUS_FAILURE = -1;
 	public static final int STATUS_LOGIN_INCORRECT = -5;
 	public static final int STATUS_LOGIN_REQUIRED = -7;
@@ -57,13 +50,26 @@ public class ModuleService {
 	public static final int STATUS_SUCCESS = 0;
 	public static final int STATUS_TRANSPORT_ERROR = -90;
 	public static final int STATUS_VALIDATION_ERROR = -4;
-
 	public static final String UPDATEJSONOBJECT = "updateJsonObject";
 	public static final String INSERTJSONOBJECT = "insertJsonObject";
+	@Resource
+	private IModelRepertory moduleDAO;
+	
+	public IModelRepertory getModuleDAO() {
+		return moduleDAO;
+	}
+
+	public void setModuleDAO(IModelRepertory moduleDAO) {
+		this.moduleDAO = moduleDAO;
+	}
 
 	// 返回json数据，要在这里加 application/json
 	// produces = "application/json;text/plain;charset=UTF-8"
 	// @Override
+	/* (non-Javadoc)
+	 * @see com.ufo.framework.system.ebo.ModelEbi#fetchData(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public Map<String, Object> fetchData(String moduleName, Integer start, Integer limit,
 			String sort, String query, String columns, String navigates, String parentFilter,
@@ -76,22 +82,10 @@ public class ModuleService {
 		return result;
 	}
 
-	/**
-	 * 内部的取得数据的函数，start=-1 ,取得所有的数据
-	 * 
-	 * @param moduleName
-	 * @param start
-	 * @param limit
-	 * @param sort
-	 * @param query
-	 * @param columns
-	 * @param navigates
-	 * @param parentFilter
-	 * @param additionFilter
-	 *          //附加的过滤条件
-	 * @param request
-	 * @return
+	/* (non-Javadoc)
+	 * @see com.ufo.framework.system.ebo.ModelEbi#fetchDataInner(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, com.ufo.framework.system.repertory.SqlModuleFilter, javax.servlet.http.HttpServletRequest)
 	 */
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public DataFetchResponseInfo fetchDataInner(String moduleName, Integer start, Integer limit,
 			String sort, String query, String columns, String navigates, String parentFilter,
@@ -108,6 +102,10 @@ public class ModuleService {
 				pFilter, additionFilter, request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ufo.framework.system.ebo.ModelEbi#fetchDataInner(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.util.List, javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public DataFetchResponseInfo fetchDataInner(String moduleName, Integer start, Integer limit,
 			String sort, String query, String columns, String navigates, String parentFilter,
@@ -125,6 +123,10 @@ public class ModuleService {
 				pFilter, null, request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ufo.framework.system.ebo.ModelEbi#fetchDataInner(java.lang.String, java.lang.Integer, java.lang.Integer, com.ufo.framework.common.core.web.SortParameter[], java.lang.String, java.lang.String, java.util.List, com.ufo.framework.system.repertory.SqlModuleFilter, com.ufo.framework.system.repertory.SqlModuleFilter, javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public DataFetchResponseInfo fetchDataInner(String moduleName, Integer start, Integer limit,
 			SortParameter sorts[], String query, String columns, List<SqlModuleFilter> navigateFilters,
@@ -149,6 +151,10 @@ public class ModuleService {
 	}
 
 	// @Override
+	/* (non-Javadoc)
+	 * @see com.ufo.framework.system.ebo.ModelEbi#getRecordNewDefault(java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public Object getRecordNewDefault(String moduleName, String parentFilter, String navigates,
 			HttpServletRequest request) {
@@ -173,9 +179,13 @@ public class ModuleService {
 	}
 
 	// @Override
+	/* (non-Javadoc)
+	 * @see com.ufo.framework.system.ebo.ModelEbi#getRecordById(java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public Object getRecordById(String moduleName, String id, HttpServletRequest request) {
-		log.debug("根据主键取得模块的一条记录:" + moduleName + "," + id);
+		debug("根据主键取得模块的一条记录:" + moduleName + "," + id);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("totalCount", 1);
 		List<Object> records = new ArrayList<Object>();
@@ -185,31 +195,35 @@ public class ModuleService {
 			e.printStackTrace();
 		}
 		result.put("records", records);
-		log.debug("getRecordById返回值：" + result.toString());
+		debug("getRecordById返回值：" + result.toString());
 		return result;
 	}
 
 	// @Override
+	/* (non-Javadoc)
+	 * @see com.ufo.framework.system.ebo.ModelEbi#add(java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public DataInsertResponseInfo add(String moduleName, String inserted, HttpServletRequest request) {
 
-		log.debug("数据insert:" + moduleName + ":" + inserted);
+		debug("数据insert:" + moduleName + ":" + inserted);
 
 		JSONObject updateJsonObject = JSONObject.fromObject(inserted);
 		request.setAttribute(INSERTJSONOBJECT, updateJsonObject);
 
 		DataInsertResponseInfo result = new DataInsertResponseInfo();
-		Module module = ApplicationService.getModuleWithName(moduleName);
+		_Module module = ApplicationService.getModuleWithName(moduleName);
 
 		Class<?> beanClass = ModuleServiceFunction.getModuleBeanClass(moduleName);
 		try {
 			Object record = Class.forName(beanClass.getName()).newInstance();
 			moduleDAO.updateValueToBean(moduleName, record, updateJsonObject);
 
-			systemBaseDAO.save(record);
+			save(record);
 			// systemBaseDAO.getHibernateTemplate().evict(record)
 			// 写入数据了以后，可能会有计算字段等 信息，重新读取
-			record = systemBaseDAO.findById(beanClass, Ognl.getValue(module.getTf_primaryKey(), record));
+			record = findById(beanClass, Ognl.getValue(module.getTf_primaryKey(), record));
 			// System.out.println("idkey : " +
 			// Ognl.getValue(module.getTf_primaryKey(), record));
 			// 写入日志
@@ -229,79 +243,45 @@ public class ModuleService {
 			result.getErrorMessage().put("error", e.getMessage());
 			result.setResultCode(STATUS_FAILURE);
 		}
-		log.debug("insert返回值：" + result.toString());
+		debug("insert返回值：" + result.toString());
 
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ufo.framework.system.ebo.ModelEbi#changeRecordId(java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public DataUpdateResponseInfo changeRecordId(String moduleName, String id, String oldid) {
-		DataUpdateResponseInfo result = new DataUpdateResponseInfo();
-		Module module = ApplicationService.getModuleWithName(moduleName);
-
-		Session session = systemBaseDAO.getSf().getCurrentSession();
-		// try {
-		Query query = session.createSQLQuery("update " + moduleName + " set "
-				+ module.getTf_primaryKey() + " = :newvalue where " + module.getTf_primaryKey()
-				+ "=:oldvalue");
-		query.setParameter("oldvalue", oldid);
-		query.setParameter("newvalue", id);
-		query.executeUpdate();
-
-		return result;
+		return moduleDAO.changeRecordId(moduleName, id, oldid);
 	}
 
 	// @Override
+	/* (non-Javadoc)
+	 * @see com.ufo.framework.system.ebo.ModelEbi#update(java.lang.String, java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public DataUpdateResponseInfo update(String moduleName, String id, String operType,
 			String updated, HttpServletRequest request) {
-		log.debug("数据update:" + moduleName + "," + id + "," + updated);
-		JSONObject updateJsonObject = JSONObject.fromObject(updated);
-		request.setAttribute(UPDATEJSONOBJECT, updateJsonObject);
-		DataUpdateResponseInfo result = new DataUpdateResponseInfo();
-		Class<?> beanClass = ModuleServiceFunction.getModuleBeanClass(moduleName);
-		Module module = ApplicationService.getModuleWithName(moduleName);
-
-		if (operType == null)
-			operType = ModuleFormOperateType.EDIT.getValue();
-		try {
-			// 保存数据之前老的值
-			Object oldRecord = systemBaseDAO.findById(beanClass, id);
-			// 使oldRecord 处于游离状态
-			systemBaseDAO.getSf().getCurrentSession().evict(oldRecord);
-			Object record = systemBaseDAO.findById(beanClass, id);
-
-			moduleDAO.updateValueToBean(moduleName, record, updateJsonObject);
-
-			systemBaseDAO.attachDirty(record, null);
-			record = systemBaseDAO.findById(beanClass, id);
-
-			result.setResultCode(STATUS_SUCCESS);
-
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-			ModuleServiceFunction.addExceptionCauseToErrorMessage(e, result.getErrorMessage(),
-					module.getTf_primaryKey());
-			result.setResultCode(STATUS_VALIDATION_ERROR);
-		} catch (Exception e) {
-			e.printStackTrace();
-			result.getErrorMessage().put("error", e.getMessage());
-			result.setResultCode(STATUS_FAILURE);
-		}
-		log.debug("update返回值：" + result.toString());
-		return result;
+		return moduleDAO.update(moduleName, id, operType, updated, request);
 
 	}
 
 	// @Override
+	/* (non-Javadoc)
+	 * @see com.ufo.framework.system.ebo.ModelEbi#remove(java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public DataDeleteResponseInfo remove(String moduleName, String id, HttpServletRequest request) {
-		log.debug("数据delete:模块" + moduleName + ",主键" + id);
+		debug("数据delete:模块" + moduleName + ",主键" + id);
 		DataDeleteResponseInfo result = new DataDeleteResponseInfo();
 		Class<?> beanClass = ModuleServiceFunction.getModuleBeanClass(moduleName);
 		try {
-			Object record = systemBaseDAO.findById(beanClass, id);
-			systemBaseDAO.delete(record);
+			Object record = findById(beanClass, id);
+			delete(record);
 			result.setResultCode(STATUS_SUCCESS);
 		} catch (DataIntegrityViolationException e) {
 			result.setResultMessage(-1, "请检查与本记录相关联的其他数据是否全部清空！");
@@ -310,7 +290,7 @@ public class ModuleService {
 			result.setResultMessage(-1, e.getMessage());
 			e.printStackTrace();
 		}
-		log.debug("delete返回值：" + result.toString());
+		debug("delete返回值：" + result.toString());
 		return result;
 	}
 

@@ -7,16 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ufo.framework.annotation.TableInfo;
-import com.ufo.framework.common.core.utils.ClassUtil;
 import com.ufo.framework.common.core.web.ModuleServiceFunction;
-import com.ufo.framework.system.ebo.SystemFrameService;
+import com.ufo.framework.system.ebi.SystemFrameEbi;
 
 @Controller
 @RequestMapping("/systemframe")
 public class SystemFrameController {
 
 	@Resource
-	private SystemFrameService systemFrameService;
+	private SystemFrameEbi systemFrameService;
 	
 	/**
 	 * 根据类名加入module 定义以及字段定义，生成grid form 的缺省
@@ -29,7 +28,7 @@ public class SystemFrameController {
 	// @Override
 	public @ResponseBody
 	String addModuleWithName(String moduleName) {
-	
+	try{
 		Class<?> moduleClass = ModuleServiceFunction.getModuleBeanClass(moduleName);
 		if (moduleClass == null)
 			return "未在指定的包中找到类:" + moduleName + "!";
@@ -46,6 +45,8 @@ public class SystemFrameController {
 			systemFrameService.createNewGridScheme(String.valueOf(tableDefine.id()), moduleClass);
 			// 创建新的表单数据
 			systemFrameService.createNewFormScheme(String.valueOf(tableDefine.id()), moduleClass);
+		}}catch(Exception e){
+			e.printStackTrace();
 		}
 		return null;
 	}

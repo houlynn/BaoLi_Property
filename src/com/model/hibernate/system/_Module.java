@@ -23,7 +23,7 @@ import com.ufo.framework.common.model.Model;
 @DynamicInsert(true)
 @DynamicUpdate(true)
 @TableInfo(group = "系统模块", id = 9902, title = "系统模块")
-public class Module implements Model {
+public class _Module implements Model {
 
 	public static final String MODULEID = "tf_moduleId";
 	public static final String MODULENAME = "tf_moduleName";
@@ -36,7 +36,7 @@ public class Module implements Model {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "tf_moduleGroupId")
 	@FieldInfo(title = "模块分组", number = 20)
-	private ModuleGroup tf_ModuleGroup;
+	private _ModuleGroup tf_ModuleGroup;
 
 	@FieldInfo(title = "模块标识", number = 30)
 	@Column(nullable = false, length = 50, updatable = false)
@@ -196,22 +196,22 @@ public class Module implements Model {
 	@FieldInfo(title = "备注", number = 800)
 	private String tf_remark;
 
-	@OneToMany(targetEntity = ModuleField.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = _ModuleField.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "tf_moduleId")
 	@OrderBy("tf_fieldOrder")
-	private List<ModuleField> tf_fields;
+	private List<_ModuleField> tf_fields;
 
-	@OneToMany(targetEntity = ModuleFormScheme.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = _ModuleFormScheme.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "tf_moduleId")
 	@OrderBy("tf_schemeOrder")
-	private List<ModuleFormScheme> tf_formSchemes;
+	private List<_ModuleFormScheme> tf_formSchemes;
 
-	@OneToMany(targetEntity = ModuleGridScheme.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = _ModuleGridScheme.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "tf_moduleId")
 	@OrderBy("tf_schemeOrder")
-	private List<ModuleGridScheme> tf_gridSchemes;
+	private List<_ModuleGridScheme> tf_gridSchemes;
 
-	public Module() {
+	public _Module() {
 
 	}
 
@@ -227,27 +227,27 @@ public class Module implements Model {
 		tf_hasPayment = false;
 	}
 
-	public List<ModuleField> getTf_fields() {
+	public List<_ModuleField> getTf_fields() {
 		return tf_fields;
 	}
 
-	public void setTf_fields(List<ModuleField> tf_fields) {
+	public void setTf_fields(List<_ModuleField> tf_fields) {
 		this.tf_fields = tf_fields;
 	}
 
-	public List<ModuleFormScheme> getTf_formSchemes() {
+	public List<_ModuleFormScheme> getTf_formSchemes() {
 		return tf_formSchemes;
 	}
 
-	public void setTf_formSchemes(List<ModuleFormScheme> tf_formSchemes) {
+	public void setTf_formSchemes(List<_ModuleFormScheme> tf_formSchemes) {
 		this.tf_formSchemes = tf_formSchemes;
 	}
 
-	public List<ModuleGridScheme> getTf_gridSchemes() {
+	public List<_ModuleGridScheme> getTf_gridSchemes() {
 		return tf_gridSchemes;
 	}
 
-	public void setTf_gridSchemes(List<ModuleGridScheme> tf_gridSchemes) {
+	public void setTf_gridSchemes(List<_ModuleGridScheme> tf_gridSchemes) {
 		this.tf_gridSchemes = tf_gridSchemes;
 	}
 
@@ -446,11 +446,11 @@ public class Module implements Model {
 		this.tf_remark = tf_remark;
 	}
 
-	public ModuleGroup getTf_ModuleGroup() {
+	public _ModuleGroup getTf_ModuleGroup() {
 		return tf_ModuleGroup;
 	}
 
-	public void setTf_ModuleGroup(ModuleGroup tf_ModuleGroup) {
+	public void setTf_ModuleGroup(_ModuleGroup tf_ModuleGroup) {
 		this.tf_ModuleGroup = tf_ModuleGroup;
 	}
 

@@ -26,7 +26,7 @@ import com.ufo.framework.common.model.Model;
 @DynamicInsert(true)
 @DynamicUpdate(true)
 @TableInfo(group = "系统模块", id = 9908, title = "模块Form字段分组", shortname = "Form字段分组")
-public class ModuleFormSchemeGroup implements Model {
+public class _ModuleFormSchemeGroup implements Model {
 
 	public static final String FORMGROUPID = "tf_formGroupId";
 
@@ -40,7 +40,7 @@ public class ModuleFormSchemeGroup implements Model {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "tf_formSchemeId", nullable = false)
 	@FieldInfo(title = "模块Form方案", number = 20)
-	private ModuleFormScheme tf_ModuleFormScheme;
+	private _ModuleFormScheme tf_ModuleFormScheme;
 
 	@FieldInfo(title = "顺序号", number = 30)
 	@Column(nullable = false)
@@ -76,16 +76,16 @@ public class ModuleFormSchemeGroup implements Model {
 	@FieldInfo(title = "其他设置", number = 120)
 	private String tf_otherSetting;
 
-	@OneToMany(targetEntity = ModuleFormSchemeGroupField.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = _ModuleFormSchemeGroupField.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "tf_formGroupId")
 	@OrderBy("tf_formFieldOrder")
-	private List<ModuleFormSchemeGroupField> tf_groupFields;
+	private List<_ModuleFormSchemeGroupField> tf_groupFields;
 
-	public ModuleFormSchemeGroup() {
+	public _ModuleFormSchemeGroup() {
 
 	}
 
-	public ModuleFormSchemeGroup(Integer tf_formGroupId) {
+	public _ModuleFormSchemeGroup(Integer tf_formGroupId) {
 		this.tf_formGroupId = tf_formGroupId;
 	}
 
@@ -177,11 +177,11 @@ public class ModuleFormSchemeGroup implements Model {
 		this.tf_approveGroup = tf_approveGroup;
 	}
 
-	public List<ModuleFormSchemeGroupField> getTf_groupFields() {
+	public List<_ModuleFormSchemeGroupField> getTf_groupFields() {
 		return tf_groupFields;
 	}
 
-	public void setTf_groupFields(List<ModuleFormSchemeGroupField> tf_groupFields) {
+	public void setTf_groupFields(List<_ModuleFormSchemeGroupField> tf_groupFields) {
 		this.tf_groupFields = tf_groupFields;
 	}
 
@@ -201,11 +201,11 @@ public class ModuleFormSchemeGroup implements Model {
 		this.tf_displayMode = tf_displayMode;
 	}
 
-	public ModuleFormScheme getTf_ModuleFormScheme() {
+	public _ModuleFormScheme getTf_ModuleFormScheme() {
 		return tf_ModuleFormScheme;
 	}
 
-	public void setTf_ModuleFormScheme(ModuleFormScheme tf_ModuleFormScheme) {
+	public void setTf_ModuleFormScheme(_ModuleFormScheme tf_ModuleFormScheme) {
 		this.tf_ModuleFormScheme = tf_ModuleFormScheme;
 	}
 

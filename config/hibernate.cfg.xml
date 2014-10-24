@@ -19,20 +19,20 @@
 		<!--Hibernate将收集有助于性能调节的统计数据 -->
 		<property name="hibernate.generate_statistics">true</property>
 		
-		<mapping class="com.model.hibernate.system.Module"/>
-		<mapping class="com.model.hibernate.system.ModuleGroup"/>
-		<mapping class="com.model.hibernate.system.ModuleField"/>
+		<mapping class="com.model.hibernate.system._Module"/>
+		<mapping class="com.model.hibernate.system._ModuleGroup"/>
+		<mapping class="com.model.hibernate.system._ModuleField"/>
 		
-		<mapping class="com.model.hibernate.system.MenuGroup"/>
-		<mapping class="com.model.hibernate.system.MenuModule"/>
+		<mapping class="com.model.hibernate.system._MenuGroup"/>
+		<mapping class="com.model.hibernate.system._MenuModule"/>
 		
-		<mapping class="com.model.hibernate.system.ModuleFormScheme"/>
-		<mapping class="com.model.hibernate.system.ModuleFormSchemeGroup"/>
-		<mapping class="com.model.hibernate.system.ModuleFormSchemeGroupField"/>
+		<mapping class="com.model.hibernate.system._ModuleFormScheme"/>
+		<mapping class="com.model.hibernate.system._ModuleFormSchemeGroup"/>
+		<mapping class="com.model.hibernate.system._ModuleFormSchemeGroupField"/>
 		
-		<mapping class="com.model.hibernate.system.ModuleGridScheme"/>
-		<mapping class="com.model.hibernate.system.ModuleGridSchemeGroup"/>
-		<mapping class="com.model.hibernate.system.ModuleGridSchemeGroupField"/>
+		<mapping class="com.model.hibernate.system._ModuleGridScheme"/>
+		<mapping class="com.model.hibernate.system._ModuleGridSchemeGroup"/>
+		<mapping class="com.model.hibernate.system._ModuleGridSchemeGroupField"/>
 		
 		<mapping class="com.model.hibernate.system.ServiceInfo"/>
 		<mapping class="com.model.hibernate.system.SystemInfo"/>

@@ -30,7 +30,7 @@ import com.ufo.framework.common.model.Model;
 @DynamicInsert(true)
 @DynamicUpdate(true)
 @TableInfo(group = "系统模块", id = 9921, title = "系统菜单")
-public class MenuModule implements Model {
+public class _MenuModule implements Model {
 	@Id
 	@FieldInfo(title = "ID号", hidden = true, number = 10)
 	@GeneratedValue(generator = "increment")
@@ -45,13 +45,13 @@ public class MenuModule implements Model {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "tf_menuGroupId", nullable = false)
 	@FieldInfo(title = "菜单分组", uniqueField = true, number = 30)
-	private MenuGroup tf_MenuGroup;
+	private _MenuGroup tf_MenuGroup;
 
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "tf_moduleId", nullable = false)
 	@FieldInfo(title = "系统模块", number = 40)
-	private Module tf_Module;
+	private _Module tf_Module;
 
 	@FieldInfo(title = "父菜单标题", number = 50)
 	@Column(length = 20)
@@ -72,7 +72,7 @@ public class MenuModule implements Model {
 	@Column(insertable = false, updatable = false)
 	private String tf_ModuleId;
 
-	public MenuModule() {
+	public _MenuModule() {
 
 	}
 
@@ -107,19 +107,19 @@ public class MenuModule implements Model {
 		this.tf_addSeparator = tf_addSeparator;
 	}
 
-	public MenuGroup getTf_MenuGroup() {
+	public _MenuGroup getTf_MenuGroup() {
 		return tf_MenuGroup;
 	}
 
-	public void setTf_MenuGroup(MenuGroup tf_MenuGroup) {
+	public void setTf_MenuGroup(_MenuGroup tf_MenuGroup) {
 		this.tf_MenuGroup = tf_MenuGroup;
 	}
 
-	public Module getTf_Module() {
+	public _Module getTf_Module() {
 		return tf_Module;
 	}
 
-	public void setTf_Module(Module tf_Module) {
+	public void setTf_Module(_Module tf_Module) {
 		this.tf_Module = tf_Module;
 	}
 

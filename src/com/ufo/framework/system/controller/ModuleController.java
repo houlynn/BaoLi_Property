@@ -19,12 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.model.hibernate.system.Module;
+import com.model.hibernate.system._Module;
 import com.ufo.framework.common.core.web.ModuleServiceFunction;
 import com.ufo.framework.common.log.LogerManager;
+import com.ufo.framework.system.ebi.ModelEbi;
 import com.ufo.framework.system.ebo.ApplicationService;
 import com.ufo.framework.system.ebo.ModuleService;
-import com.ufo.framework.system.repertory.ModuleDAO;
+import com.ufo.framework.system.irepertory.IModelRepertory;
 import com.ufo.framework.system.repertory.SqlModuleFilter;
 import com.ufo.framework.system.repertory.SystemBaseDAO;
 import com.ufo.framework.system.shared.module.DataDeleteResponseInfo;
@@ -50,10 +51,10 @@ public class ModuleController implements LogerManager {
 	private SystemBaseDAO systemBaseDAO;
 
 	@Resource
-	private ModuleService moduleService;
+	private ModelEbi moduleService;
 
 	@Resource
-	private ModuleDAO moduleDAO;
+	private IModelRepertory moduleDAO;
 
 	private static final Log log = LogFactory.getLog(ModuleController.class);
 
@@ -167,7 +168,7 @@ public class ModuleController implements LogerManager {
 			String operType, @RequestBody String updated, HttpServletRequest request) {
 
 		DataUpdateResponseInfo result = null;
-		Module module = ApplicationService.getModuleWithName(moduleName);
+		_Module module = ApplicationService.getModuleWithName(moduleName);
 		// 如果主键值修改了，那么先进行主键的修改
 		if (oldid != null && (!oldid.equals(id))) {
 			try {

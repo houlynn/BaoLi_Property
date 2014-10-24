@@ -31,7 +31,7 @@ import com.ufo.framework.common.model.Model;
 @DynamicInsert(true)
 @DynamicUpdate(true)
 @TableInfo(group = "系统模块", id = 9906, title = "模块列表字段", shortname = "列表字段")
-public class ModuleGridSchemeGroupField implements Model {
+public class _ModuleGridSchemeGroupField implements Model {
 
 	@Id
 	@GeneratedValue(generator = "increment")
@@ -43,7 +43,7 @@ public class ModuleGridSchemeGroupField implements Model {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "tf_gridGroupId", nullable = false)
 	@FieldInfo(title = "模块列表字段分组", number = 20)
-	private ModuleGridSchemeGroup tf_ModuleGridSchemeGroup;
+	private _ModuleGridSchemeGroup tf_ModuleGridSchemeGroup;
 
 	@JsonIgnore
 	@FieldInfo(title = "顺序号", number = 30)
@@ -54,7 +54,7 @@ public class ModuleGridSchemeGroupField implements Model {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "tf_fieldId", nullable = false)
 	@FieldInfo(title = "模块字段", uniqueField = true, number = 40)
-	private ModuleField tf_ModuleField;
+	private _ModuleField tf_ModuleField;
 
 	@Column(insertable = false, updatable = false)
 	private Integer tf_fieldId;
@@ -78,11 +78,11 @@ public class ModuleGridSchemeGroupField implements Model {
 	@FieldInfo(title = "Excel不导出", number = 100)
 	private Boolean tf_notExportExcel;
 
-	public ModuleGridSchemeGroupField() {
+	public _ModuleGridSchemeGroupField() {
 
 	}
 
-	public ModuleGridSchemeGroupField(Integer gridFieldId) {
+	public _ModuleGridSchemeGroupField(Integer gridFieldId) {
 		this.tf_gridFieldId = gridFieldId;
 	}
 
@@ -134,19 +134,19 @@ public class ModuleGridSchemeGroupField implements Model {
 		this.tf_otherSetting = tf_otherSetting;
 	}
 
-	public ModuleGridSchemeGroup getTf_ModuleGridSchemeGroup() {
+	public _ModuleGridSchemeGroup getTf_ModuleGridSchemeGroup() {
 		return tf_ModuleGridSchemeGroup;
 	}
 
-	public void setTf_ModuleGridSchemeGroup(ModuleGridSchemeGroup tf_ModuleGridSchemeGroup) {
+	public void setTf_ModuleGridSchemeGroup(_ModuleGridSchemeGroup tf_ModuleGridSchemeGroup) {
 		this.tf_ModuleGridSchemeGroup = tf_ModuleGridSchemeGroup;
 	}
 
-	public ModuleField getTf_ModuleField() {
+	public _ModuleField getTf_ModuleField() {
 		return tf_ModuleField;
 	}
 
-	public void setTf_ModuleField(ModuleField tf_ModuleField) {
+	public void setTf_ModuleField(_ModuleField tf_ModuleField) {
 		this.tf_ModuleField = tf_ModuleField;
 	}
 

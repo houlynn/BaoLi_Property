@@ -6,8 +6,8 @@ import java.util.Set;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-import com.model.hibernate.system.MenuGroup;
-import com.model.hibernate.system.Module;
+import com.model.hibernate.system._MenuGroup;
+import com.model.hibernate.system._Module;
 import com.model.hibernate.system.ServiceInfo;
 import com.model.hibernate.system.SystemInfo;
 /**
@@ -30,9 +30,9 @@ public class ApplicationInfo implements Serializable {
 		private ServiceInfo serviceInfo;
 
 		// 系统中模块的字义和菜单的定义
-		private Set<Module> tf_Modules; // 系统模块定义信息
+		private Set<_Module> tf_Modules; // 系统模块定义信息
 
-		private List<MenuGroup> tf_MenuGroups; // 系统菜单
+		private List<_MenuGroup> tf_MenuGroups; // 系统菜单
 
 		// 系统中各种权限的定义
 
@@ -67,19 +67,19 @@ public class ApplicationInfo implements Serializable {
 			this.serviceInfo = serviceInfo;
 		}
 
-		public Set<Module> getTf_Modules() {
+		public Set<_Module> getTf_Modules() {
 			return tf_Modules;
 		}
 
-		public void setTf_Modules(Set<Module> tf_Modules) {
+		public void setTf_Modules(Set<_Module> tf_Modules) {
 			this.tf_Modules = tf_Modules;
 		}
 
-		public List<MenuGroup> getTf_MenuGroups() {
+		public List<_MenuGroup> getTf_MenuGroups() {
 			return tf_MenuGroups;
 		}
 
-		public void setTf_MenuGroups(List<MenuGroup> tf_MenuGroups) {
+		public void setTf_MenuGroups(List<_MenuGroup> tf_MenuGroups) {
 			this.tf_MenuGroups = tf_MenuGroups;
 		}
 

@@ -30,7 +30,7 @@ import com.ufo.framework.common.model.Model;
 @DynamicInsert(true)
 @DynamicUpdate(true)
 @TableInfo(group = "系统模块", id = 9903, title = "模块字段")
-public class ModuleField implements Model {
+public class _ModuleField implements Model {
 
 	public static final String FIELDID = "tf_fieldId";
 	public static final String FIELDNAME = "tf_fieldName";
@@ -47,7 +47,7 @@ public class ModuleField implements Model {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "tf_moduleId", nullable = false)
 	@FieldInfo(title = "所属模块", number = 20)
-	private Module tf_Module;
+	private _Module tf_Module;
 
 	@JsonIgnore
 	@FieldInfo(title = "顺序号", number = 30)
@@ -170,11 +170,11 @@ public class ModuleField implements Model {
 	@Transient
 	private String manytoone_TitleName;
 
-	public ModuleField() {
+	public _ModuleField() {
 
 	}
 
-	public ModuleField(Integer tf_fieldId) {
+	public _ModuleField(Integer tf_fieldId) {
 		this.tf_fieldId = tf_fieldId;
 	}
 
@@ -322,11 +322,11 @@ public class ModuleField implements Model {
 		this.tf_allowSummary = tf_allowSummary;
 	}
 
-	public Module getTf_Module() {
+	public _Module getTf_Module() {
 		return tf_Module;
 	}
 
-	public void setTf_Module(Module tf_Module) {
+	public void setTf_Module(_Module tf_Module) {
 		this.tf_Module = tf_Module;
 	}
 

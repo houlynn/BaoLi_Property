@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.model.hibernate.system.Module;
+import com.model.hibernate.system._Module;
 
 /**
  *  存放该用户对module 的数据的过滤信息,有了过滤信息，需要在生成的sql中加入
@@ -15,14 +15,14 @@ import com.model.hibernate.system.Module;
 @SuppressWarnings("serial")
 public class UserDataFilterInfo implements Serializable {
 
-	private Module module;
+	private _Module module;
 
 	private String mode; // 方式，可以是 包括，和不包括 ,还未用到
 
 	private List<String> keys; // 主键的列表
 	private List<String> titles; // 主键的名称值，可以用来显示及打印
 
-	public UserDataFilterInfo(Module module) {
+	public UserDataFilterInfo(_Module module) {
 		this.module = module;
 		keys = new ArrayList<String>();
 		titles = new ArrayList<String>();
@@ -56,11 +56,11 @@ public class UserDataFilterInfo implements Serializable {
 				+ keys + ", titles=" + titles + "]";
 	}
 
-	public Module getModule() {
+	public _Module getModule() {
 		return module;
 	}
 
-	public void setModule(Module module) {
+	public void setModule(_Module module) {
 		this.module = module;
 	}
 

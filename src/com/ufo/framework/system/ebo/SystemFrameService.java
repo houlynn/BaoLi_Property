@@ -27,47 +27,56 @@ import org.springframework.transaction.annotation.Transactional;
 import com.model.hibernate.superclass._ApproveAbstract;
 import com.model.hibernate.superclass._AuditingAbstract;
 import com.model.hibernate.superclass._InputInfoAbstract;
-import com.model.hibernate.system.Module;
-import com.model.hibernate.system.ModuleField;
-import com.model.hibernate.system.ModuleFormScheme;
-import com.model.hibernate.system.ModuleFormSchemeGroup;
-import com.model.hibernate.system.ModuleFormSchemeGroupField;
-import com.model.hibernate.system.ModuleGridScheme;
-import com.model.hibernate.system.ModuleGridSchemeGroup;
-import com.model.hibernate.system.ModuleGridSchemeGroupField;
-import com.model.hibernate.system.ModuleGroup;
+import com.model.hibernate.system._Module;
+import com.model.hibernate.system._ModuleField;
+import com.model.hibernate.system._ModuleFormScheme;
+import com.model.hibernate.system._ModuleFormSchemeGroup;
+import com.model.hibernate.system._ModuleFormSchemeGroupField;
+import com.model.hibernate.system._ModuleGridScheme;
+import com.model.hibernate.system._ModuleGridSchemeGroup;
+import com.model.hibernate.system._ModuleGridSchemeGroupField;
+import com.model.hibernate.system._ModuleGroup;
 import com.ufo.framework.annotation.FieldInfo;
 import com.ufo.framework.annotation.TableInfo;
 import com.ufo.framework.common.core.web.ModuleServiceFunction;
-import com.ufo.framework.system.repertory.ModuleDAO;
-import com.ufo.framework.system.repertory.SystemBaseDAO;
-import com.ufo.framework.system.repertory.SystemFrameDAO;
+import com.ufo.framework.system.ebi.SystemFrameEbi;
+import com.ufo.framework.system.irepertory.IModelRepertory;
+import com.ufo.framework.system.irepertory.ISystemFrameRepertory;
 import com.ufo.framework.system.shared.TreeNodeRecordChecked;
 
 
 @Service
-public class SystemFrameService  {
+public class SystemFrameService extends Ebo implements SystemFrameEbi   {
 
 
-	@Resource
-	private SystemBaseDAO systemBaseDAO;
 
 	@Resource
-	private SystemFrameDAO systemFrameDAO;
-
+	private ISystemFrameRepertory systemFrameDAO;
 	@Resource
-	private ModuleDAO moduleDAO;
+	private IModelRepertory moduleDAO;
+	
+	/* (non-Javadoc)
+	 * @see com.ufo.framework.system.ebo.SystemFrameEbi#getModuleDAO()
+	 */
+	public IModelRepertory getModuleDAO() {
+		return moduleDAO;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.ufo.framework.system.ebo.SystemFrameEbi#setModuleDAO(com.ufo.framework.system.irepertory.IModelRepertory)
+	 */
+	public void setModuleDAO(IModelRepertory moduleDAO) {
+		this.moduleDAO = moduleDAO;
+	}
 
 	
-	/**
-	 * 根据系统类的定义刷新当前模块的字段,在新增一个module 以后也可执行此过程
-	 * 
-	 * @param moduleId
-	 * @return
+	/* (non-Javadoc)
+	 * @see com.ufo.framework.system.ebo.SystemFrameEbi#refreshModuleField(java.lang.String)
 	 */
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public Integer refreshModuleField(String moduleId) {
-		Module module = (Module) systemBaseDAO.findByPropertyFirst(Module.class, Module.MODULEID,
+	public Integer refreshModuleField(String moduleId) throws  Exception {
+		_Module module = (_Module) findByPropertyFirst(_Module.class, _Module.MODULEID,
 				moduleId);
 		String moduleName = module.getTf_moduleName();
 		Class<?> beanClass = ModuleServiceFunction.getModuleBeanClass(moduleName);
@@ -83,7 +92,7 @@ public class SystemFrameService  {
 	}
 
 	//
-	private Integer refreshModuleField(Class<?> beanClass, Module module, Integer maxId) {
+	private Integer refreshModuleField(Class<?> beanClass, _Module module, Integer maxId) throws Exception {
 
 		// 每一个数据库里没有的字段写入数据库
 		int i = 0;
@@ -100,24 +109,23 @@ public class SystemFrameService  {
 			Id id = f.getAnnotation(Id.class);
 			if (id != null && !f.getName().equals(module.getTf_primaryKey())) {
 				module.setTf_primaryKey(f.getName());
-				systemBaseDAO.attachDirty(module, null);
+				attachDirty(module, null);
 			}
 			// module的namefield
 			FieldInfo FieldInfo = f.getAnnotation(FieldInfo.class);
 			if (FieldInfo != null && FieldInfo.uniqueField()
 					&& !f.getName().equals(module.getTf_nameFields())) {
 				module.setTf_nameFields(f.getName());
-				systemBaseDAO.attachDirty(module, null);
+				attachDirty(module, null);
 			}
 
-			ModuleField moduleField = (ModuleField) systemBaseDAO
-					.findByPropertyFirstWithOtherCondition(ModuleField.class, ModuleField.FIELDNAME,
+			_ModuleField moduleField = (_ModuleField) findByPropertyFirstWithOtherCondition(_ModuleField.class, _ModuleField.FIELDNAME,
 							f.getName(), " tf_moduleId = '" + module.getTf_moduleId() + "'");
 			boolean isnew = false;
 			// 如果不是新加的字段，那么就不修改东西，如果要修改，自己去界面中修改
 			if (moduleField == null) {
 				isnew = true;
-				moduleField = new ModuleField();
+				moduleField = new _ModuleField();
 				moduleField.setTf_Module(module);
 				moduleField.setTf_fieldId(maxId);
 				maxId += 10;
@@ -185,9 +193,9 @@ public class SystemFrameService  {
 				
 			}
 			if (isnew)
-				systemBaseDAO.save(moduleField);
+				save(moduleField);
 			else
-				systemBaseDAO.attachDirty(moduleField, null);
+				attachDirty(moduleField, null);
 		}
 		if (beanClass.getSuperclass() != null)
 			return i + refreshModuleField(beanClass.getSuperclass(), module, maxId);
@@ -195,22 +203,20 @@ public class SystemFrameService  {
 			return i;
 	}
 
-	/**
-	 * 根据类名加入module 定义以及字段定义，生成grid form 的缺省
-	 * 
-	 * @param moduleName
-	 * @return
+	/* (non-Javadoc)
+	 * @see com.ufo.framework.system.ebo.SystemFrameEbi#addModuleWithName(java.lang.String, java.lang.Class, com.ufo.framework.annotation.TableInfo)
 	 */
 
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public String addModuleWithName(String moduleName, Class<?> moduleClass, TableInfo tableDefine) {
+	public String addModuleWithName(String moduleName, Class<?> moduleClass, TableInfo tableDefine) throws Exception {
 
 		// 生成 模块文件
-		Module module = (Module) systemBaseDAO.findByPropertyFirst(Module.class, Module.MODULENAME,
+		_Module module = (_Module) findByPropertyFirst(_Module.class, _Module.MODULENAME,
 				moduleName);
 
 		if (module == null) {
-			module = new Module();
+			module = new _Module();
 			module.setTf_ModuleGroup(get_ModuleGroupWithTitle(tableDefine.group()));
 			module.setTf_moduleId(String.valueOf(tableDefine.id()));
 			module.setTf_moduleName(moduleName);
@@ -230,38 +236,42 @@ public class SystemFrameService  {
 			module.setTf_nameFields("undefined");
 			module.setTf_primaryKey("undefined");
 			module.setTf_requestMapping("undefined");
-			systemBaseDAO.save(module);
+			save(module);
 		}
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ufo.framework.system.ebo.SystemFrameEbi#createNewGridScheme(java.lang.String, java.lang.Class)
+	 */
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public Boolean createNewGridScheme(String moduleId, Class<?> moduleClass) {
-		Module module = (Module) systemBaseDAO.findById(Module.class, moduleId);
+	public Boolean createNewGridScheme(String moduleId, Class<?> moduleClass) throws Exception {
+		_Module module = (_Module) findById(_Module.class, moduleId);
 		if (module == null)
 			return false;
-		ModuleGridScheme scheme = new ModuleGridScheme();
+		_ModuleGridScheme scheme = new _ModuleGridScheme();
 		scheme.setTf_schemeName(module.getTf_title() + "列表");
 		scheme.setTf_Module(module);
 		scheme.setTf_schemeOrder(systemFrameDAO.getNextGridSchemeOrder(moduleId));
-		systemBaseDAO.save(scheme);
+		save(scheme);
 
-		ModuleGridSchemeGroup schemeGroup = new ModuleGridSchemeGroup();
+		_ModuleGridSchemeGroup schemeGroup = new _ModuleGridSchemeGroup();
 		schemeGroup.setTf_gridGroupOrder(1);
 		schemeGroup.setTf_ModuleGridScheme(scheme);
 		schemeGroup.setTf_gridGroupName(module.getTf_title());
-		systemBaseDAO.save(schemeGroup);
+		save(schemeGroup);
 
-		List<ModuleField> fields = systemFrameDAO.get_ModuleFields(moduleId);
+		List<_ModuleField> fields = systemFrameDAO.get_ModuleFields(moduleId);
 
 		int order = 10;
-		for (ModuleField field : fields) {
+		for (_ModuleField field : fields) {
 			if (field.getTf_isHidden())
 				continue;
 			// 审批的不加入，加入另外的组
 			if (!(field.getTf_fieldOrder() >= 1000 && (field.getTf_fieldName().startsWith("tf_sh") || field
 					.getTf_fieldName().startsWith("tf_auditing")))) {
-				ModuleGridSchemeGroupField groupField = new ModuleGridSchemeGroupField();
+				_ModuleGridSchemeGroupField groupField = new _ModuleGridSchemeGroupField();
 				groupField.setTf_ModuleField(field);
 				if (field.getTf_fieldOrder() != null && field.getTf_fieldOrder() > 0)
 					groupField.setTf_gridFieldOrder(field.getTf_fieldOrder());
@@ -270,22 +280,22 @@ public class SystemFrameService  {
 					order += 10;
 				}
 				groupField.setTf_ModuleGridSchemeGroup(schemeGroup);
-				systemBaseDAO.save(groupField);
+				save(groupField);
 			}
 		}
 
 		if (_AuditingAbstract.class.isAssignableFrom(moduleClass)) {
 			// 审核组
-			schemeGroup = new ModuleGridSchemeGroup();
+			schemeGroup = new _ModuleGridSchemeGroup();
 			schemeGroup.setTf_gridGroupOrder(8);
 			schemeGroup.setTf_ModuleGridScheme(scheme);
 			schemeGroup.setTf_isShowHeaderSpans(true);
 			schemeGroup.setTf_gridGroupName("审核情况");
-			systemBaseDAO.save(schemeGroup);
+			save(schemeGroup);
 			order = 10;
-			for (ModuleField field : fields) {
+			for (_ModuleField field : fields) {
 				if ((field.getTf_fieldOrder() >= 2010 && field.getTf_fieldOrder() <= 2040)) {
-					ModuleGridSchemeGroupField groupField = new ModuleGridSchemeGroupField();
+					_ModuleGridSchemeGroupField groupField = new _ModuleGridSchemeGroupField();
 					groupField.setTf_ModuleField(field);
 					groupField.setTf_ModuleGridSchemeGroup(schemeGroup);
 					if (field.getTf_fieldOrder() != null && field.getTf_fieldOrder() > 0)
@@ -294,7 +304,7 @@ public class SystemFrameService  {
 						groupField.setTf_gridFieldOrder(order);
 						order += 10;
 					}
-					systemBaseDAO.save(groupField);
+					save(groupField);
 				}
 			}
 		}
@@ -303,16 +313,16 @@ public class SystemFrameService  {
 
 			// 审批组
 			for (int i = 1; i <= 6; i++) {
-				schemeGroup = new ModuleGridSchemeGroup();
+				schemeGroup = new _ModuleGridSchemeGroup();
 				schemeGroup.setTf_gridGroupOrder(10 + i);
 				schemeGroup.setTf_ModuleGridScheme(scheme);
 				schemeGroup.setTf_isShowHeaderSpans(true);
 				schemeGroup.setTf_gridGroupName("第" + i + "级审批");
-				systemBaseDAO.save(schemeGroup);
+				save(schemeGroup);
 				order = 10;
-				for (ModuleField field : fields) {
+				for (_ModuleField field : fields) {
 					if ((field.getTf_fieldOrder() >= 1000 + i * 100 && field.getTf_fieldOrder() < 1100 + i * 100)) {
-						ModuleGridSchemeGroupField groupField = new ModuleGridSchemeGroupField();
+						_ModuleGridSchemeGroupField groupField = new _ModuleGridSchemeGroupField();
 						groupField.setTf_ModuleField(field);
 						groupField.setTf_ModuleGridSchemeGroup(schemeGroup);
 						if (field.getTf_fieldOrder() != null && field.getTf_fieldOrder() > 0)
@@ -321,40 +331,44 @@ public class SystemFrameService  {
 							groupField.setTf_gridFieldOrder(order);
 							order += 10;
 						}
-						systemBaseDAO.save(groupField);
+						save(groupField);
 					}
 				}
 			}
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ufo.framework.system.ebo.SystemFrameEbi#createNewFormScheme(java.lang.String, java.lang.Class)
+	 */
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public Boolean createNewFormScheme(String moduleId, Class<?> moduleClass) {
-		Module module = (Module) systemBaseDAO.findById(Module.class, moduleId);
+	public Boolean createNewFormScheme(String moduleId, Class<?> moduleClass) throws Exception {
+		_Module module = (_Module) findById(_Module.class, moduleId);
 		if (module == null)
 			return false;
-		ModuleFormScheme scheme = new ModuleFormScheme();
+		_ModuleFormScheme scheme = new _ModuleFormScheme();
 		scheme.setTf_schemeName(module.getTf_title() + "Form");
 		scheme.setTf_Module(module);
 		scheme.setTf_windowHeight(-1);
 		scheme.setTf_windowWidth(600);
 		scheme.setTf_numCols(2);
 		scheme.setTf_schemeOrder(systemFrameDAO.getNextFormSchemeOrder(moduleId));
-		systemBaseDAO.save(scheme);
+		save(scheme);
 
-		ModuleFormSchemeGroup schemeGroup = new ModuleFormSchemeGroup();
+		_ModuleFormSchemeGroup schemeGroup = new _ModuleFormSchemeGroup();
 		schemeGroup.setTf_formGroupOrder(1);
 		schemeGroup.setTf_ModuleFormScheme(scheme);
 		schemeGroup.setTf_formGroupName(module.getTf_title());
-		systemBaseDAO.save(schemeGroup);
+		save(schemeGroup);
 
-		List<ModuleField> fields = systemFrameDAO.get_ModuleFields(moduleId);
+		List<_ModuleField> fields = systemFrameDAO.get_ModuleFields(moduleId);
 
 		int order = 10;
-		for (ModuleField field : fields) {
+		for (_ModuleField field : fields) {
 			if (!(field.getTf_fieldOrder() >= 1000 && (field.getTf_fieldName().startsWith("tf_sh") || field
 					.getTf_fieldName().startsWith("tf_auditing")))) {
-				ModuleFormSchemeGroupField groupField = new ModuleFormSchemeGroupField();
+				_ModuleFormSchemeGroupField groupField = new _ModuleFormSchemeGroupField();
 				groupField.setTf_ModuleField(field);
 				groupField.setTf_ModuleFormSchemeGroup(schemeGroup);
 				if (field.getTf_fieldOrder() != null && field.getTf_fieldOrder() > 0)
@@ -363,24 +377,24 @@ public class SystemFrameService  {
 					groupField.setTf_formFieldOrder(order);
 					order += 10;
 				}
-				systemBaseDAO.save(groupField);
+				save(groupField);
 			}
 		}
 
 		// 审核组
 		if (_AuditingAbstract.class.isAssignableFrom(moduleClass)) {
-			schemeGroup = new ModuleFormSchemeGroup();
+			schemeGroup = new _ModuleFormSchemeGroup();
 			schemeGroup.setTf_formGroupOrder(8);
 			schemeGroup.setTf_ModuleFormScheme(scheme);
 			schemeGroup.setTf_auditingGroup(true);
 			schemeGroup.setTf_numCols(2);
 			schemeGroup.setTf_collapsible(true);
 			schemeGroup.setTf_formGroupName("审核情况");
-			systemBaseDAO.save(schemeGroup);
+			save(schemeGroup);
 			order = 10;
-			for (ModuleField field : fields) {
+			for (_ModuleField field : fields) {
 				if ((field.getTf_fieldOrder() >= 2010 && field.getTf_fieldOrder() <= 2040)) {
-					ModuleFormSchemeGroupField groupField = new ModuleFormSchemeGroupField();
+					_ModuleFormSchemeGroupField groupField = new _ModuleFormSchemeGroupField();
 					groupField.setTf_ModuleField(field);
 					groupField.setTf_ModuleFormSchemeGroup(schemeGroup);
 					if (field.getTf_fieldOrder() != null && field.getTf_fieldOrder() > 0)
@@ -389,7 +403,7 @@ public class SystemFrameService  {
 						groupField.setTf_formFieldOrder(order);
 						order += 10;
 					}
-					systemBaseDAO.save(groupField);
+					save(groupField);
 				}
 			}
 		}
@@ -397,18 +411,18 @@ public class SystemFrameService  {
 		// 审批组
 		if (_ApproveAbstract.class.isAssignableFrom(moduleClass))
 			for (int i = 1; i <= 6; i++) {
-				schemeGroup = new ModuleFormSchemeGroup();
+				schemeGroup = new _ModuleFormSchemeGroup();
 				schemeGroup.setTf_formGroupOrder(10 + i);
 				schemeGroup.setTf_ModuleFormScheme(scheme);
 				schemeGroup.setTf_approveGroup(true);
 				schemeGroup.setTf_numCols(3);
 				schemeGroup.setTf_collapsible(true);
 				schemeGroup.setTf_formGroupName("第" + i + "级审批");
-				systemBaseDAO.save(schemeGroup);
+				save(schemeGroup);
 				order = 10;
-				for (ModuleField field : fields) {
+				for (_ModuleField field : fields) {
 					if ((field.getTf_fieldOrder() >= 1000 + i * 100 && field.getTf_fieldOrder() < 1100 + i * 100)) {
-						ModuleFormSchemeGroupField groupField = new ModuleFormSchemeGroupField();
+						_ModuleFormSchemeGroupField groupField = new _ModuleFormSchemeGroupField();
 						groupField.setTf_ModuleField(field);
 						groupField.setTf_ModuleFormSchemeGroup(schemeGroup);
 						if (field.getTf_fieldOrder() != null && field.getTf_fieldOrder() > 0)
@@ -417,7 +431,7 @@ public class SystemFrameService  {
 							groupField.setTf_formFieldOrder(order);
 							order += 10;
 						}
-						systemBaseDAO.save(groupField);
+						save(groupField);
 					}
 				}
 			}
@@ -430,21 +444,22 @@ public class SystemFrameService  {
 	 * @param groupTitle
 	 * @return
 	 */
-	private ModuleGroup get_ModuleGroupWithTitle(String groupTitle) {
-		ModuleGroup moduleGroup = (ModuleGroup) systemBaseDAO.findByPropertyFirst(ModuleGroup.class,
-				ModuleGroup.TITLE, groupTitle);
+	private _ModuleGroup get_ModuleGroupWithTitle(String groupTitle) throws Exception {
+		_ModuleGroup moduleGroup = (_ModuleGroup) findByPropertyFirst(_ModuleGroup.class,
+				_ModuleGroup.TITLE, groupTitle);
 		if (moduleGroup == null) {
-			moduleGroup = new ModuleGroup();
+			moduleGroup = new _ModuleGroup();
 			moduleGroup.setTf_moduleGroupId(groupTitle);
 			moduleGroup.setTf_title(groupTitle);
-			systemBaseDAO.save(moduleGroup);
+			save(moduleGroup);
 		}
 		return moduleGroup;
 	}
 
-	/**
-	 * 
+	/* (non-Javadoc)
+	 * @see com.ufo.framework.system.ebo.SystemFrameEbi#saveGridGroupFields(java.lang.String, java.lang.String)
 	 */
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public Boolean saveGridGroupFields(String gridGroupId, String noderecords) {
 		if (noderecords != null && noderecords.length() > 10) {
@@ -463,6 +478,10 @@ public class SystemFrameService  {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ufo.framework.system.ebo.SystemFrameEbi#saveFormGroupFields(java.lang.String, java.lang.String)
+	 */
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public Boolean saveFormGroupFields(String formGroupId, String noderecords) {
 		if (noderecords != null && noderecords.length() > 10) {

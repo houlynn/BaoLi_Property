@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.model.hibernate.system.Module;
-import com.model.hibernate.system.ModuleField;
+import com.model.hibernate.system._Module;
+import com.model.hibernate.system._ModuleField;
 import com.ufo.framework.system.shared.FieldType;
 import com.ufo.framework.system.shared.module.FieldAggregationType;
 import com.ufo.framework.system.shared.module.ModuleConstants;
@@ -64,7 +64,7 @@ public class SqlField {
 	 * @param module
 	 *          当前模块
 	 */
-	public SqlField(Module module, Module childModule, HttpServletRequest request) {
+	public SqlField(_Module module, _Module childModule, HttpServletRequest request) {
 		super();
 		this.moduleName = childModule.getTf_moduleName();
 		SqlGenerator sqlGenerator = new SqlGenerator(childModule, request);
@@ -98,7 +98,7 @@ public class SqlField {
 	 * @param moduleField
 	 *          字段
 	 */
-	public SqlField(Module module, Module childModule, ModuleField moduleField,
+	public SqlField(_Module module, _Module childModule, _ModuleField moduleField,
 			HttpServletRequest request) {
 		super();
 		this.moduleName = childModule.getTf_moduleName();

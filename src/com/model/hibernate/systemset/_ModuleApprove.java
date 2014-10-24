@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
-import com.model.hibernate.system.Module;
+import com.model.hibernate.system._Module;
 import com.ufo.framework.annotation.FieldInfo;
 import com.ufo.framework.annotation.TableInfo;
 import com.ufo.framework.common.model.Model;
@@ -36,7 +36,7 @@ public class _ModuleApprove implements Model {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "tf_moduleId", nullable = false, updatable = false)
 	@FieldInfo(title = "所属模块", number = 20)
-	private Module tf_Module;
+	private _Module tf_Module;
 
 	@FieldInfo(title = "顺序号", number = 30)
 	@Column(nullable = false)
@@ -65,11 +65,11 @@ public class _ModuleApprove implements Model {
 		this.tf_approveId = tf_approveId;
 	}
 
-	public Module getTf_Module() {
+	public _Module getTf_Module() {
 		return tf_Module;
 	}
 
-	public void setTf_Module(Module tf_Module) {
+	public void setTf_Module(_Module tf_Module) {
 		this.tf_Module = tf_Module;
 	}
 
