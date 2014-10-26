@@ -34,6 +34,8 @@
 		<mapping class="com.model.hibernate.system._ModuleGridSchemeGroup"/>
 		<mapping class="com.model.hibernate.system._ModuleGridSchemeGroupField"/>
 		
+		<mapping class="com.model.hibernate.system.Agreement"/>
+		
 		<mapping class="com.model.hibernate.system.ServiceInfo"/>
 		<mapping class="com.model.hibernate.system.SystemInfo"/>
 

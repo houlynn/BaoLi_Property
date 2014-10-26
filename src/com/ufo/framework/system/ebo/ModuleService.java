@@ -70,7 +70,6 @@ public class ModuleService extends Ebo implements ModelEbi {
 	 * @see com.ufo.framework.system.ebo.ModelEbi#fetchData(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public Map<String, Object> fetchData(String moduleName, Integer start, Integer limit,
 			String sort, String query, String columns, String navigates, String parentFilter,
 			HttpServletRequest request) {
@@ -86,11 +85,11 @@ public class ModuleService extends Ebo implements ModelEbi {
 	 * @see com.ufo.framework.system.ebo.ModelEbi#fetchDataInner(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, com.ufo.framework.system.repertory.SqlModuleFilter, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public DataFetchResponseInfo fetchDataInner(String moduleName, Integer start, Integer limit,
 			String sort, String query, String columns, String navigates, String parentFilter,
 			SqlModuleFilter additionFilter, HttpServletRequest request) {
-
+		System.out.println("sort: "+sort+"query :"+query+" columns: "+columns +" navigates ："+navigates +" parentFilter ");
+	    System.out.println(parentFilter);
 		SortParameter sorts[] = SortParameter.changeToSortParameters(sort);
 		List<SqlModuleFilter> navigateFilters = changeToNavigateFilters(navigates);
 		SqlModuleFilter pFilter = null;
@@ -106,11 +105,9 @@ public class ModuleService extends Ebo implements ModelEbi {
 	 * @see com.ufo.framework.system.ebo.ModelEbi#fetchDataInner(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.util.List, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public DataFetchResponseInfo fetchDataInner(String moduleName, Integer start, Integer limit,
 			String sort, String query, String columns, String navigates, String parentFilter,
 			List<SqlModuleFilter> additionFilters, HttpServletRequest request) {
-
 		SortParameter sorts[] = SortParameter.changeToSortParameters(sort);
 		List<SqlModuleFilter> navigateFilters = changeToNavigateFilters(navigates);
 		navigateFilters.addAll(additionFilters);
@@ -127,7 +124,6 @@ public class ModuleService extends Ebo implements ModelEbi {
 	 * @see com.ufo.framework.system.ebo.ModelEbi#fetchDataInner(java.lang.String, java.lang.Integer, java.lang.Integer, com.ufo.framework.common.core.web.SortParameter[], java.lang.String, java.lang.String, java.util.List, com.ufo.framework.system.repertory.SqlModuleFilter, com.ufo.framework.system.repertory.SqlModuleFilter, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public DataFetchResponseInfo fetchDataInner(String moduleName, Integer start, Integer limit,
 			SortParameter sorts[], String query, String columns, List<SqlModuleFilter> navigateFilters,
 			SqlModuleFilter pFilter, SqlModuleFilter additionFilter, HttpServletRequest request) {
@@ -155,7 +151,6 @@ public class ModuleService extends Ebo implements ModelEbi {
 	 * @see com.ufo.framework.system.ebo.ModelEbi#getRecordNewDefault(java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public Object getRecordNewDefault(String moduleName, String parentFilter, String navigates,
 			HttpServletRequest request) {
 
@@ -183,7 +178,6 @@ public class ModuleService extends Ebo implements ModelEbi {
 	 * @see com.ufo.framework.system.ebo.ModelEbi#getRecordById(java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public Object getRecordById(String moduleName, String id, HttpServletRequest request) {
 		debug("根据主键取得模块的一条记录:" + moduleName + "," + id);
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -204,7 +198,6 @@ public class ModuleService extends Ebo implements ModelEbi {
 	 * @see com.ufo.framework.system.ebo.ModelEbi#add(java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
 	public DataInsertResponseInfo add(String moduleName, String inserted, HttpServletRequest request) {
 
 		debug("数据insert:" + moduleName + ":" + inserted);
@@ -274,7 +267,6 @@ public class ModuleService extends Ebo implements ModelEbi {
 	 * @see com.ufo.framework.system.ebo.ModelEbi#remove(java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
 	public DataDeleteResponseInfo remove(String moduleName, String id, HttpServletRequest request) {
 		debug("数据delete:模块" + moduleName + ",主键" + id);
 		DataDeleteResponseInfo result = new DataDeleteResponseInfo();

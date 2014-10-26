@@ -333,7 +333,7 @@ public class ModuleRepertory extends HibernateRepertory implements IModelReperto
 
 			updateValueToBean(moduleName, record, updateJsonObject);
 
-			attachDirty(record, null);
+			saveOrUpdate(record, null);
 			record = findById(beanClass, id);
 
 			result.setResultCode(STATUS_SUCCESS);

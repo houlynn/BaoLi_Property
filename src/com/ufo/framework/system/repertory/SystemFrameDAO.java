@@ -92,7 +92,6 @@ public class SystemFrameDAO extends HibernateRepertory implements ISystemFrameRe
 	@Override
 	public Integer getMaxModuleFieldId(String moduleId) {
 		Session session = getSf().getCurrentSession();
-		try {
 			Criteria criteria = session.createCriteria(_ModuleField.class);
 			Criteria moduleCriteria = criteria.createCriteria("tf_Module");
 			moduleCriteria.add(Restrictions.eq("tf_moduleId", moduleId));
@@ -102,9 +101,6 @@ public class SystemFrameDAO extends HibernateRepertory implements ISystemFrameRe
 				return Integer.parseInt(moduleId) * 10000 + 10;
 			else
 				return (Integer) results.get(0) + 10;
-		} finally {
-			session.close();
-		}
 	}
 
 	/* (non-Javadoc)

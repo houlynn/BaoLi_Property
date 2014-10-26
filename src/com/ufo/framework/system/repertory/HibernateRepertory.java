@@ -157,7 +157,7 @@ public class HibernateRepertory implements ICommonRepertory {
 	}
 
 	@Override
-	public void attachDirty(Object record, Object old) {
+	public void saveOrUpdate(Object record, Object old) {
 		sf.getCurrentSession().saveOrUpdate(record);
 		debug("save record:" + record.getClass().getSimpleName() + ":"
 				+ record.toString());
@@ -313,11 +313,11 @@ public class HibernateRepertory implements ICommonRepertory {
 	public List<?> findByPropertyWithOtherCondition(String beanClassName,
 			String propertyName, Object value, String otherCondString) {
 		String queryString = "from " + beanClassName + " as model where model."
-				+ propertyName + "= ?";
+				+ propertyName + "=?0";
 		if (otherCondString != null && otherCondString.length() > 1) {
 			queryString = queryString + " and (" + otherCondString + ")";
 		}
-		 List<?> result= sf.getCurrentSession().createQuery(queryString).setParameter(0, value).list();
+		 List<?> result= sf.getCurrentSession().createQuery(queryString).setParameter("0", value).list();
 		 if(result==null){
 			 result=new ArrayList<>();
 		 }

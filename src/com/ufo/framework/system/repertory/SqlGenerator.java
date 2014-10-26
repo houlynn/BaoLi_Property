@@ -60,16 +60,18 @@ public class SqlGenerator {
 
 		if (module.getTf_hasAddition())
 			getFieldList().add(new SqlField_AdditionCount(module));
-
+         
 		// 加入所有基本类型于sql中
 		for (_ModuleField field : module.getTf_fields()) {
-
 				getFieldList().add(
 						new SqlField(module.getTf_moduleName(), module.getTableAsName(), field
 								.getTf_fieldName(), field.getTf_DBfieldName(), field.getTf_DBformula(), field
 								.getTf_fieldType()));
 			
 		}
+		System.out.println("=======================================================");
+		getFieldList().forEach(item->System.out.println(item.getFieldSql()+item.getFieldName()));
+		System.out.println("=======================================================");
 
 	}
 
@@ -111,8 +113,9 @@ public class SqlGenerator {
 				(distinct ? " , 1 as ____c " : " ") ;
 		sql = sql + " from " + getFrom();
 		sql = sql + getLeftJoin();
-		sql = sql + getWhere();
-		sql = sql + getSortByString();
+		//sql = sql + getWhere();
+		//sql = sql + getSortByString();
+		System.out.println(" 凭借sql:"+sql);
 		return sql;
 	}
 

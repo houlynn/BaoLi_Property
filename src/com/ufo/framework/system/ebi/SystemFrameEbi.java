@@ -43,5 +43,9 @@ public interface SystemFrameEbi {
 
 	public abstract Boolean saveFormGroupFields(String formGroupId,
 			String noderecords);
+	
+	
+
+	public abstract String addModuleWithName(String moduleName) throws Exception;
 
 }

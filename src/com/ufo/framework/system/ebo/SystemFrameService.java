@@ -11,18 +11,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONSerializer;
 import net.sf.json.JsonConfig;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.annotations.Formula;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.model.hibernate.superclass._ApproveAbstract;
 import com.model.hibernate.superclass._AuditingAbstract;
@@ -74,9 +71,8 @@ public class SystemFrameService extends Ebo implements SystemFrameEbi   {
 	 * @see com.ufo.framework.system.ebo.SystemFrameEbi#refreshModuleField(java.lang.String)
 	 */
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
 	public Integer refreshModuleField(String moduleId) throws  Exception {
-		_Module module = (_Module) findByPropertyFirst(_Module.class, _Module.MODULEID,
+	 _Module module =(_Module) findByPropertyFirst(_Module.class, _Module.MODULEID,
 				moduleId);
 		String moduleName = module.getTf_moduleName();
 		Class<?> beanClass = ModuleServiceFunction.getModuleBeanClass(moduleName);
@@ -109,17 +105,17 @@ public class SystemFrameService extends Ebo implements SystemFrameEbi   {
 			Id id = f.getAnnotation(Id.class);
 			if (id != null && !f.getName().equals(module.getTf_primaryKey())) {
 				module.setTf_primaryKey(f.getName());
-				attachDirty(module, null);
+				saveOrUpdate(module, null);
 			}
 			// module的namefield
 			FieldInfo FieldInfo = f.getAnnotation(FieldInfo.class);
 			if (FieldInfo != null && FieldInfo.uniqueField()
 					&& !f.getName().equals(module.getTf_nameFields())) {
 				module.setTf_nameFields(f.getName());
-				attachDirty(module, null);
+				saveOrUpdate(module, null);
 			}
 
-			_ModuleField moduleField = (_ModuleField) findByPropertyFirstWithOtherCondition(_ModuleField.class, _ModuleField.FIELDNAME,
+		_ModuleField moduleField = (_ModuleField) findByPropertyFirstWithOtherCondition(_ModuleField.class, _ModuleField.FIELDNAME,
 							f.getName(), " tf_moduleId = '" + module.getTf_moduleId() + "'");
 			boolean isnew = false;
 			// 如果不是新加的字段，那么就不修改东西，如果要修改，自己去界面中修改
@@ -195,7 +191,7 @@ public class SystemFrameService extends Ebo implements SystemFrameEbi   {
 			if (isnew)
 				save(moduleField);
 			else
-				attachDirty(moduleField, null);
+				saveOrUpdate(moduleField, null);
 		}
 		if (beanClass.getSuperclass() != null)
 			return i + refreshModuleField(beanClass.getSuperclass(), module, maxId);
@@ -208,13 +204,11 @@ public class SystemFrameService extends Ebo implements SystemFrameEbi   {
 	 */
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
 	public String addModuleWithName(String moduleName, Class<?> moduleClass, TableInfo tableDefine) throws Exception {
 
-		// 生成 模块文件
+     // 生成 模块文件
 		_Module module = (_Module) findByPropertyFirst(_Module.class, _Module.MODULENAME,
 				moduleName);
-
 		if (module == null) {
 			module = new _Module();
 			module.setTf_ModuleGroup(get_ModuleGroupWithTitle(tableDefine.group()));
@@ -225,6 +219,12 @@ public class SystemFrameService extends Ebo implements SystemFrameEbi   {
 			module.setTf_title(tableDefine.title());
 			if (tableDefine.codeLevel().length() > 0)
 				module.setTf_codeLevel(tableDefine.codeLevel());
+			if(moduleClass.isAnnotationPresent(Table.class)){
+				Table table=moduleClass.getAnnotation(Table.class);
+				module.setTf_tableName(table.name());
+			}else{
+				module.setTf_tableName(moduleClass.getSimpleName());
+			}
 			module.setTf_isEnable(true);
 			module.setTf_hasBrowse(true);
 			module.setTf_hasInsert(true);
@@ -245,7 +245,7 @@ public class SystemFrameService extends Ebo implements SystemFrameEbi   {
 	 * @see com.ufo.framework.system.ebo.SystemFrameEbi#createNewGridScheme(java.lang.String, java.lang.Class)
 	 */
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
+	//@Transactional(propagation = Propagation.REQUIRED)
 	public Boolean createNewGridScheme(String moduleId, Class<?> moduleClass) throws Exception {
 		_Module module = (_Module) findById(_Module.class, moduleId);
 		if (module == null)
@@ -342,7 +342,7 @@ public class SystemFrameService extends Ebo implements SystemFrameEbi   {
 	 * @see com.ufo.framework.system.ebo.SystemFrameEbi#createNewFormScheme(java.lang.String, java.lang.Class)
 	 */
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
+	///@Transactional(propagation = Propagation.REQUIRED)
 	public Boolean createNewFormScheme(String moduleId, Class<?> moduleClass) throws Exception {
 		_Module module = (_Module) findById(_Module.class, moduleId);
 		if (module == null)
@@ -460,7 +460,6 @@ public class SystemFrameService extends Ebo implements SystemFrameEbi   {
 	 * @see com.ufo.framework.system.ebo.SystemFrameEbi#saveGridGroupFields(java.lang.String, java.lang.String)
 	 */
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
 	public Boolean saveGridGroupFields(String gridGroupId, String noderecords) {
 		if (noderecords != null && noderecords.length() > 10) {
 			JsonConfig config = new JsonConfig();
@@ -482,7 +481,6 @@ public class SystemFrameService extends Ebo implements SystemFrameEbi   {
 	 * @see com.ufo.framework.system.ebo.SystemFrameEbi#saveFormGroupFields(java.lang.String, java.lang.String)
 	 */
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
 	public Boolean saveFormGroupFields(String formGroupId, String noderecords) {
 		if (noderecords != null && noderecords.length() > 10) {
 			JsonConfig config = new JsonConfig();
@@ -499,6 +497,24 @@ public class SystemFrameService extends Ebo implements SystemFrameEbi   {
 		}
 		return true;
 
+	}
+	@Override
+	public String addModuleWithName(  String moduleName) throws Exception {
+		Class<?> moduleClass = ModuleServiceFunction.getModuleBeanClass(moduleName);
+		if (moduleClass == null)
+			return "未在指定的包中找到类:" + moduleName + "!";
+			TableInfo tableDefine = (TableInfo) moduleClass.getAnnotation(TableInfo.class);
+		if (tableDefine == null)
+			return "未在指定的类中找到tableDefine的标注定义";
+		String result =this.addModuleWithName(moduleName, moduleClass, tableDefine);
+		if(result==null){
+		this.refreshModuleField(tableDefine.id()+"");
+		// 创建新的列表数据
+		this.createNewGridScheme(tableDefine.id()+"", moduleClass);
+		// 创建新的表单数据
+		this.createNewFormScheme(tableDefine.id()+"", moduleClass);
+		}
+		return null;
 	}
 
 

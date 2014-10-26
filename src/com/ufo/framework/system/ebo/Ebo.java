@@ -137,9 +137,9 @@ public class Ebo implements Ebi {
 		
 	}
 	@Override
-	public void attachDirty(Object record, Object old) {
+	public void saveOrUpdate(Object record, Object old) {
 		// TODO Auto-generated method stub
-		repertory.attachDirty(record, old);
+		repertory.saveOrUpdate(record, old);
 		
 	}
 	@Override

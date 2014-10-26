@@ -34,7 +34,7 @@ public class _Module implements Model {
 	private String tf_moduleId; // 模块ＩＤ，模块序号
 
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-	@JoinColumn(name = "tf_moduleGroupId")
+	@JoinColumn(name = "tf_moduleGroupId",nullable=false)
 	@FieldInfo(title = "模块分组", number = 20)
 	private _ModuleGroup tf_ModuleGroup;
 
@@ -55,7 +55,7 @@ public class _Module implements Model {
 	private String tf_englishname; // 英文简称，在新增序号的时候，可以把这字母加进去
 
 	@FieldInfo(title = "表名", number = 70)
-	@Column(length = 50)
+	@Column(length = 50,nullable=false)
 	private String tf_tableName;
 
 	@FieldInfo(title = "主键", number = 80)

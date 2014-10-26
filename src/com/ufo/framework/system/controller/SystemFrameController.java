@@ -28,6 +28,12 @@ public class SystemFrameController {
 	// @Override
 	public @ResponseBody
 	String addModuleWithName(String moduleName) {
+/*		try {
+			return systemFrameService.addModuleWithName(moduleName);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 	try{
 		Class<?> moduleClass = ModuleServiceFunction.getModuleBeanClass(moduleName);
 		if (moduleClass == null)

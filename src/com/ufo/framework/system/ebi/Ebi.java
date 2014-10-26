@@ -144,7 +144,7 @@ public interface Ebi extends LogerManager {
 	 * @param record
 	 * @param old
 	 */
-	public void attachDirty(Object record, Object old);
+	public void saveOrUpdate(Object record, Object old);
 
 	/**
 	 * 删除一条
@@ -329,6 +329,7 @@ public interface Ebi extends LogerManager {
 
 	public Object findByPropertyFirstWithOtherCondition(Class<?> className,
 			String propertyName, Object value, String otherCondString);
+
 
 	
 }
