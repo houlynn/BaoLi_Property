@@ -28,7 +28,7 @@ Ext.define('app.view.main.Main', {
 				
 				// 在此处取得各个modelView的参数，通过ajax也行
 				
-				this.getViewModel().set('monetary.value','tenthousand');
+				//this.getViewModel().set('monetary.value','tenthousand');
 
 				
 				this.callParent();
@@ -51,7 +51,6 @@ Ext.define('app.view.main.Main', {
 					{
 						xtype : 'mainmenutoolbar',
 						region : 'north', // 把他放在maintop的下面
-						hidden : true,
 						bind : {
 							hidden : '{!isToolbarMenu}'
 						}

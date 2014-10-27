@@ -32,8 +32,9 @@ Ext.define('app.view.main.MainController', {
 
 			// 选择了主菜单上的菜单后执行
 			onMainMenuClick : function(menuitem) {
+			    alert(0);
+				console.log( menuitem);
 				var maincenter = this.getView().down('maincenter');
-
 				maincenter.setActiveTab(maincenter.add({
 							xtype : 'modulepanel',
 							// 将当前的选中菜单的 "模块名称" 加入到参数中

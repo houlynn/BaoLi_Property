@@ -6,7 +6,6 @@ Ext.define('app.view.main.menu.AccordionMainMenu', {
 			extend : 'Ext.panel.Panel',
 			alias : 'widget.mainmenuaccordion',
 			title : '系统菜单',
-
 			layout : {
 				type : 'accordion',
 				animate : true
@@ -42,6 +41,7 @@ Ext.define('app.view.main.menu.AccordionMainMenu', {
 										xtype : 'buttontransparent',
 										text : this.addSpace(module.tf_title, 12),
 										glyph : module.tf_glyph,
+										moduleName:module.tf_moduleName,
 										handler : 'onMainMenuClick'
 									});
 						}

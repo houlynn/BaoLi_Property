@@ -5,10 +5,22 @@ Ext.define('app.view.main.menu.MainMenuTree', {
 			extend : 'Ext.tree.Panel',
 			alias : 'widget.mainmenutree',
 			title : '系统菜单',
-
+			listeners: { itemclick: function (view, record, item, index, e, eOpts) {
+                if (record.get('leaf')) { //叶子节点
+                	console.log(view);
+                	console.log(this);
+                	var maincenter = view.down('maincenter');
+    				maincenter.setActiveTab(maincenter.add({
+    							xtype : 'modulepanel',
+    							// 将当前的选中菜单的 "模块名称" 加入到参数中
+    							moduleName : record.get('moduleName'),
+    							closable : true,
+    							reorderable : true
+    						}));
+                }
+            }},
 			rootVisible : false,
 			lines : false,
-
 			initComponent : function() {
 				this.store = Ext.create('Ext.data.TreeStore', {
 							root : {
@@ -38,7 +50,9 @@ Ext.define('app.view.main.menu.MainMenuTree', {
 								moduleId : module.tf_moduleId,
 								moduleName : module.tf_moduleName,
 								text : module.tf_title,
-								leaf : true
+								moduleName:module.tf_moduleName,
+								handler : 'onMainMenuClick',
+								leaf : true,
 							};
 							menuitem.appendChild(childnode);
 						}
