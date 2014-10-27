@@ -47,7 +47,8 @@ Ext.define('app.view.main.Main', {
 			items : [{
 						xtype : 'maintop',
 						region : 'north' // 把他放在最顶上
-					}, {
+					},
+					{
 						xtype : 'mainmenutoolbar',
 						region : 'north', // 把他放在maintop的下面
 						hidden : true,

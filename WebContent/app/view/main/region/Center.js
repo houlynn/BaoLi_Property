@@ -82,7 +82,7 @@ Ext.define('app.view.main.region.Center', {
 
 		this.items = [{
 					glyph : 0xf015,
-				  xtype : 'homepage',
+				   xtype : 'homepage',
 					border : true,
 					frame : false,
 					reorderable : false
