@@ -7,11 +7,12 @@ Ext.define('app.view.main.menu.MainMenuTree', {
 			title : '系统菜单',
 			listeners: { itemclick: function (view, record, item, index, e, eOpts) {
                 if (record.get('leaf')) { //叶子节点
-                	console.log(view);
-                	console.log(this);
-                	var maincenter = view.down('maincenter');
+                	var  mainPanel= view.up('app-main');
+                	var maincenter=mainPanel.down("maincenter");
+                	if(record.get('moduleName'))
     				maincenter.setActiveTab(maincenter.add({
     							xtype : 'modulepanel',
+    							title:record.get('moduleName'),
     							// 将当前的选中菜单的 "模块名称" 加入到参数中
     							moduleName : record.get('moduleName'),
     							closable : true,
