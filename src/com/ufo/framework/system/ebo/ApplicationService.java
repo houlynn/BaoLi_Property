@@ -51,7 +51,7 @@ public class ApplicationService extends Ebo  implements  ApplicationEbi {
 
 		ServiceInfo serviceInfo = new ServiceInfo();
 		serviceInfo.setTf_serviceDepartment("广州英趣科技有限公司");
-		serviceInfo.setTf_serviceMen("独孤厚玲");
+		serviceInfo.setTf_serviceMen("吃饭否");
 		serviceInfo.setTf_serviceTelnumber("1320528xxxx");
 		serviceInfo.setTf_serviceFaxnumber("0510-88888888");
 		serviceInfo.setTf_serviceQQ("7858xxxx");

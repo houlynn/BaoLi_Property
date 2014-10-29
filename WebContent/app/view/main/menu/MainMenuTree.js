@@ -48,8 +48,6 @@ Ext.define('app.view.main.menu.MainMenuTree', {
 						var module = vm.getModuleDefine(menumodule.tf_ModuleId);
 						if (module) {
 							var childnode = {
-								moduleId : module.tf_moduleId,
-								moduleName : module.tf_moduleName,
 								text : module.tf_title,
 								moduleName:module.tf_moduleName,
 								handler : 'onMainMenuClick',

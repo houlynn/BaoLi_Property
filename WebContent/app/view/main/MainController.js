@@ -32,11 +32,22 @@ Ext.define('app.view.main.MainController', {
 
 			// 选择了主菜单上的菜单后执行
 			onMainMenuClick : function(menuitem) {
-			    alert(0);
-				console.log( menuitem);
+				alert(0);
 				var maincenter = this.getView().down('maincenter');
+			/*	Ext.Array.each(this.data.tf_fields, function(field) {
+					if (field.tf_fieldId == fieldId) {
+						result = field;
+						return false;
+					}
+				});*/
+				console.log("=============打印======================")
+				console.log(maincenter.items);
+				console.log("=============打印======================")
+				
+				
 				maincenter.setActiveTab(maincenter.add({
 							xtype : 'modulepanel',
+							title:menuitem.moduleName,
 							// 将当前的选中菜单的 "模块名称" 加入到参数中
 							moduleName : menuitem.moduleName,
 							closable : true,
