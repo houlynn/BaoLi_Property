@@ -48,8 +48,6 @@ Ext.define('app.view.main.region.Top', {
 						glyph : 0xf015,
 						handler : 'onHomePageButtonClick'
 					}, {
-						xtype : 'settingmenu'
-					}, {
 						text : '帮助',
 						glyph : 0xf059
 					}, {

@@ -44,7 +44,24 @@ Ext.define('core.app.store.GridStore', {
 			autoSync : false,
 			leadingBufferZone : 100,
 			buffered : false, // buffered=true可以无限下拉，但是删除和新增，reload都有问题，暂时不用
-
+			proxy : {
+				type : "ajax",
+				url : "/bl/ac/load.action",
+				actionMethods : {
+					create : "POST",
+					read : "GET",
+					update : "POST",
+					destroy : "POST"
+				},
+				reader : {
+					type : "json",
+					rootPropert : "rows",
+					totalProperty : 'totalCount'
+				},
+				writer : {
+					type : "json"
+				}
+			},
 			config : {
 				extraParams : {},
 				navigates : []

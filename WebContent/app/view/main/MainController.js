@@ -20,8 +20,6 @@ Ext.define('app.view.main.MainController', {
 					},
 
 			init : function() {
-				console.log('mainController init');
-				this.mixins.gridController.init.call(this);
 
 			},
 
@@ -34,12 +32,6 @@ Ext.define('app.view.main.MainController', {
 			onMainMenuClick : function(menuitem) {
 				alert(0);
 				var maincenter = this.getView().down('maincenter');
-			/*	Ext.Array.each(this.data.tf_fields, function(field) {
-					if (field.tf_fieldId == fieldId) {
-						result = field;
-						return false;
-					}
-				});*/
 				console.log("=============打印======================")
 				console.log(maincenter.items);
 				console.log("=============打印======================")

@@ -1,0 +1,4 @@
+app.genWditingMask = new Ext.LoadMask( Ext.getBody().component, {
+    msg:"Generating report, please wait!"
+});
+解决 extjs5无法作用xt.getBody() 

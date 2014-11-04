@@ -6,6 +6,7 @@ Ext.define('app.view.module.factory.ColumnsFactory', {
 
 			statics : {
 				getColumns : function(moduleModel, schemeOrderId) {
+					
 					var scheme = moduleModel.get('tf_gridSchemes')[0]; // 取得第一个grid的方案
 					if (schemeOrderId) { // 查找到相应的scheme
 						Ext.Array.each(moduleModel.get('tf_gridSchemes'), function(s) {

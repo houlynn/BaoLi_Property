@@ -16,21 +16,12 @@ Ext.define('app.view.main.Main', {
 					'app.view.main.region.Left' ],
 
 			controller : 'main',
-			// MVVM架构的控制器的名称，会在当前路径中根据‘Main’ + Controller 来确定文件名
-			// 这个我没找到其他任何可以自动加载MainController.js的依据，只能作上面的判断了
 			viewModel : {
 				type : 'main'
-				// MVVM架构的viewModel的类型，会在当前路径中根据‘Main’ + Model 来确定文件名
 			},
 
 			initComponent : function() {
 				Ext.setGlyphFontFamily('FontAwesome'); // 设置图标字体文件，只有设置了以后才能用glyph属性
-				
-				// 在此处取得各个modelView的参数，通过ajax也行
-				
-				//this.getViewModel().set('monetary.value','tenthousand');
-
-				
 				this.callParent();
 			},
 
@@ -48,13 +39,7 @@ Ext.define('app.view.main.Main', {
 						xtype : 'maintop',
 						region : 'north' // 把他放在最顶上
 					},
-					{
-						xtype : 'mainmenutoolbar',
-						region : 'north', // 把他放在maintop的下面
-						bind : {
-							hidden : '{!isToolbarMenu}'
-						}
-					}, {
+				 {
 						xtype : 'mainbottom',
 						region : 'south' // 把他放在最底下
 					}, {
@@ -65,10 +50,6 @@ Ext.define('app.view.main.Main', {
 						width : 220,
 						collapsible : true,
 						split : true,
-						hidden : true,
-						bind : {
-							hidden : '{!isTreeMenu}'
-						}
 					}, {
 						region : 'center', // 中间面版
 						xtype : 'maincenter'

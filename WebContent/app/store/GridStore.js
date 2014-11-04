@@ -44,18 +44,17 @@ Ext.define('app.store.GridStore', {
 			autoSync : false,
 			leadingBufferZone : 100,
 			buffered : false, // buffered=true可以无限下拉，但是删除和新增，reload都有问题，暂时不用
-
 			config : {
 				extraParams : {},
 				navigates : []
 				// 导航属性选中的情况
 			},
-
 			constructor : function(param) {
 				var me = this;
 				this.pageSize = 20;
 				this.extraParams = {};
 				this.navigates = [];
+				console.log(param.modulePanel);
 				// 有创建时加进来的导航约束
 				if (param.modulePanel.param) {
 					var dnv = param.modulePanel.param.defaultNavigateValues;

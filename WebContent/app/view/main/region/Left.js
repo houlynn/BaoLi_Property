@@ -48,11 +48,6 @@ Ext.define('app.view.main.region.Left', {
 								tool.previousSibling().show();
 							}
 						}
-					}, {
-						itemId : 'up',
-						type : 'up',
-						tooltip : '在上面显示菜单条',
-						handler : 'showMainMenuToolbar'
 					}],
 
 			initComponent : function() {
