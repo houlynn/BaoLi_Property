@@ -7,8 +7,17 @@ Ext.define('app.view.main.menu.MainMenuTree', {
 			title : '系统菜单',
 			listeners: { itemclick: function (view, record, item, index, e, eOpts) {
                 if (record.get('leaf')) { //叶子节点
+                	var moduleName= record.get("moduleName");
                 	var  mainPanel= view.up('app-main');
                 	var maincenter=mainPanel.down("maincenter");
+                	for(var i=0;i<maincenter.items.items.length;i++){
+                		var item= maincenter.items.items[i];
+                		if(!moduleName){
+                			return ;
+                		}else if(item.moduleName==moduleName){
+                			return ;
+                		}
+                	}
                 	if(record.get('moduleName'))
     				maincenter.setActiveTab(maincenter.add({
     							xtype : 'modulepanel',
