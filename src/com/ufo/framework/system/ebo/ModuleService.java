@@ -88,7 +88,7 @@ public class ModuleService extends Ebo implements ModelEbi {
 			SqlModuleFilter additionFilter, HttpServletRequest request) {
 		System.out.println("sort: "+sort+"query :"+query+" columns: "+columns +" navigates ："+navigates +" parentFilter ");
 	    System.out.println(parentFilter);
-		SortParameter sorts[] = SortParameter.changeToSortParameters(sort);
+		SortParameter sorts[] = SortParameter.changeToSortParameters(sort);//排序对象
 		List<SqlModuleFilter> navigateFilters = changeToNavigateFilters(navigates);
 		SqlModuleFilter pFilter = null;
 		if (parentFilter != null && parentFilter.length() > 1) {

@@ -62,6 +62,8 @@ public class ModuleController implements LogerManager {
 	Map<String, Object> fetchData(String moduleName, Integer start, Integer limit, String sort,
 			String query, String columns, String navigates, String parentFilter,
 			HttpServletRequest request) {
+		String a="";
+		a="1";
 		DataFetchResponseInfo response = moduleService.fetchDataInner(moduleName, start, limit, sort,
 				query, columns, navigates, parentFilter, (SqlModuleFilter) null, request);
 		Map<String, Object> result = new HashMap<String, Object>();
