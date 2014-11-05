@@ -44,7 +44,7 @@ import com.ufo.framework.system.shared.module.DataUpdateResponseInfo;
 public class ModuleController implements LogerManager {
 
 	public ModuleController() {
-		debug(this.getClass().getName());
+		debug("请求"+ this.getClass().getName());
 	}
 
 
@@ -53,8 +53,6 @@ public class ModuleController implements LogerManager {
 
 	@Resource
 	private IModelRepertory moduleDAO;
-
-	private static final Log log = LogFactory.getLog(ModuleController.class);
 
 	/**
 	 * 根据前台的请求取得数据
@@ -70,6 +68,7 @@ public class ModuleController implements LogerManager {
 		result.put("records", response.getMatchingObjects());
 		result.put("totalCount", response.getTotalRows());
 		return result;
+		
 	}
 
 	/**
@@ -93,18 +92,19 @@ public class ModuleController implements LogerManager {
 
 	@RequestMapping(value = "/fetchdata.do/{id}", method = RequestMethod.GET)
 	public @ResponseBody
-	Object getRecordById(String moduleName, @PathVariable("id") String id, HttpServletRequest request) {
-		log.debug("根据主键取得模块的一条记录:" + moduleName + "," + id);
+	Object getRecordById(String moduleName, @PathVariable("id") String id, HttpServletRequest request,HttpServletResponse  response) {
+	  debug("根据主键取得模块的一条记录:" + moduleName + "," + id);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("totalCount", 1);
 		List<Object> records = new ArrayList<Object>();
 		try {
 			records.add(moduleDAO.getModuleRecord(moduleName, id, request).toString());
 		} catch (Exception e) {
+			response.setStatus(500);
 			e.printStackTrace();
 		}
 		result.put("records", records);
-		log.debug("getRecordById返回值：" + result.toString());
+		debug("getRecordById返回值：" + result.toString());
 		return result;
 	}
 
@@ -143,8 +143,6 @@ public class ModuleController implements LogerManager {
 			if (result == null)
 				result = new DataInsertResponseInfo();
 			result.setResultCode(ModuleService.STATUS_VALIDATION_ERROR);
-			Map<String,String> mesg=  new HashMap<String, String>();
-			mesg.put("msg", e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.setStatus(500);

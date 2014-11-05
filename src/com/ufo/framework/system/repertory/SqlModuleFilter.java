@@ -6,9 +6,9 @@ import java.util.List;
 
 /**
  * 查询时进行的模块的过滤，可以是当前模块，也可以是manytoone 的父模块
- * 
- * @author jfok
- * 
+* @author HouLynn
+* @date 2014年11月5日
+  @version 1.0
  */
 @SuppressWarnings("serial")
 public class SqlModuleFilter implements Serializable {

@@ -1,10 +1,5 @@
 package com.ufo.framework.system.ebi;
-
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.ufo.framework.annotation.TableInfo;
-
 public interface SystemFrameEbi {
 
 
