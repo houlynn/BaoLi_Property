@@ -44,12 +44,21 @@ Ext.define('app.view.module.region.Grid', {
 		this.plugins = [this.rowEditing];
 		this.selType = 'rowmodel';
 		this.on('edit', function(editor, e) {
+			         console.log(e);
 					// 每一行编辑完保存之后，都提交数据
 					e.grid.getStore().sync({
-								callback : function() {
+								callback : function(data,store) {
 									 e.record.commit();
 								}
 							});
+					var proxy= e.grid.getStore().getProxy();
+					var errorInfo=proxy.proxy;
+					if(errorInfo){
+						
+						
+						
+						
+					}
 				});
 
 		this.viewConfig = {

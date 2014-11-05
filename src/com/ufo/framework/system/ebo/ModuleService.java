@@ -30,13 +30,11 @@ import com.ufo.framework.common.core.web.SortParameter;
 import com.ufo.framework.system.ebi.ModelEbi;
 import com.ufo.framework.system.irepertory.IModelRepertory;
 import com.ufo.framework.system.repertory.SqlModuleFilter;
-import com.ufo.framework.system.repertory.SystemBaseDAO;
 import com.ufo.framework.system.shared.module.DataDeleteResponseInfo;
 import com.ufo.framework.system.shared.module.DataFetchRequestInfo;
 import com.ufo.framework.system.shared.module.DataFetchResponseInfo;
 import com.ufo.framework.system.shared.module.DataInsertResponseInfo;
 import com.ufo.framework.system.shared.module.DataUpdateResponseInfo;
-import com.ufo.framework.system.shared.module.ModuleFormOperateType;
 import com.ufo.framework.system.shared.module.grid.GridFilterData;
 
 @Service
@@ -46,10 +44,10 @@ public class ModuleService extends Ebo implements ModelEbi {
 	public static final int STATUS_LOGIN_REQUIRED = -7;
 	public static final int STATUS_LOGIN_SUCCESS = -8;
 	public static final int STATUS_MAX_LOGIN_ATTEMPTS_EXCEEDED = -6;
-	public static final int STATUS_SERVER_TIMEOUT = -100;
+	public static final int STATUS_SERVER_TIMEOUT = -100; 
 	public static final int STATUS_SUCCESS = 0;
 	public static final int STATUS_TRANSPORT_ERROR = -90;
-	public static final int STATUS_VALIDATION_ERROR = -4;
+	public static final int STATUS_VALIDATION_ERROR = -4; //验证失败!
 	public static final String UPDATEJSONOBJECT = "updateJsonObject";
 	public static final String INSERTJSONOBJECT = "insertJsonObject";
 	@Resource

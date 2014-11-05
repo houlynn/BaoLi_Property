@@ -1,16 +1,12 @@
 package com.ufo.framework.system.repertory;
 
 import java.util.List;
-
-import javax.annotation.Resource;
-
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-
 import com.model.hibernate.system._ModuleField;
 import com.model.hibernate.system._ModuleFormScheme;
 import com.model.hibernate.system._ModuleFormSchemeGroup;
@@ -23,8 +19,6 @@ import com.ufo.framework.system.irepertory.ISystemFrameRepertory;
 @Repository
 public class SystemFrameDAO extends HibernateRepertory implements ISystemFrameRepertory {
 
-	@Resource
-	private SystemBaseDAO systemBaseDAO;
 
 	/* (non-Javadoc)
 	 * @see com.ufo.framework.system.repertory.SystemFrameRepertory#isGridGroupHasField(java.lang.Integer, java.lang.Integer)

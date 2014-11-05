@@ -5,15 +5,14 @@ Ext.define('app.view.module.factory.ModelFactory', {
 
 	statics : {
 		getModelByModule : function(module) {
-						
 			var model = Ext.define('app.model.' + module.tf_moduleName, {
 				extend : 'Ext.data.Model',
 				module : module,
-				idProperty : module.tf_primaryKey,
-				nameFields : module.tf_nameFields,
-				titleTpl : module.tf_titleTpl,
+				idProperty : module.tf_primaryKey,//主键
+				nameFields : module.tf_nameFields,//唯一标示
+				titleTpl : module.tf_titleTpl,//标题模板
 				titleTemplate : null,
-				fields : this.getFields(module),
+				fields : this.getFields(module),//属性
 				proxy : {
 					type : 'rest',
 					batchActions : true,
@@ -37,7 +36,7 @@ Ext.define('app.view.module.factory.ModelFactory', {
 					},
 					reader : {
 						type : 'json',
-						root : 'records',
+						rootProperty : 'records',
 						totalProperty : 'totalCount'
 					},
 					writer : {
@@ -46,6 +45,7 @@ Ext.define('app.view.module.factory.ModelFactory', {
 						writeAllFields : false
 						// 没有修改过的字段不加入到update和delete的json中去
 					},
+		
 					listeners : {
 						exception : function(proxy, response, operation) {
 							// 将出错信息加到proxy中去，传递到store的sync中显示出错信息，显示后将此属性删除

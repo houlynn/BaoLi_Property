@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,7 +28,6 @@ import com.ufo.framework.system.ebo.ApplicationService;
 import com.ufo.framework.system.ebo.ModuleService;
 import com.ufo.framework.system.irepertory.IModelRepertory;
 import com.ufo.framework.system.repertory.SqlModuleFilter;
-import com.ufo.framework.system.repertory.SystemBaseDAO;
 import com.ufo.framework.system.shared.module.DataDeleteResponseInfo;
 import com.ufo.framework.system.shared.module.DataFetchResponseInfo;
 import com.ufo.framework.system.shared.module.DataInsertResponseInfo;
@@ -47,8 +47,6 @@ public class ModuleController implements LogerManager {
 		debug(this.getClass().getName());
 	}
 
-	@Resource
-	private SystemBaseDAO systemBaseDAO;
 
 	@Resource
 	private ModelEbi moduleService;
@@ -117,19 +115,22 @@ public class ModuleController implements LogerManager {
 	 * @param inserted
 	 * @param request
 	 * @return
+	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/create.do", method = RequestMethod.POST)
 	public @ResponseBody
 	DataInsertResponseInfo addWithNoPrimaryKey(String moduleName, @RequestBody String inserted,
-			HttpServletRequest request) {
+			HttpServletResponse response,
+			HttpServletRequest request) throws Exception {
 
-		return add(moduleName, inserted, request);
+		return add(moduleName, inserted, response, request);
 	}
 
 	@RequestMapping(value = "/create.do/{id}", method = RequestMethod.POST)
 	public @ResponseBody
 	DataInsertResponseInfo add(String moduleName, @RequestBody String inserted,
-			HttpServletRequest request) {
+			HttpServletResponse response,
+			HttpServletRequest request) throws Exception {
 		DataInsertResponseInfo result = null;
 		try {
 			result = moduleService.add(moduleName, inserted, request);
@@ -137,17 +138,24 @@ public class ModuleController implements LogerManager {
 				result.getRecords().add(
 						moduleDAO.getModuleRecord(moduleName, result.getKey(), request).toString());
 		} catch (DataAccessException e) {
+			response.setStatus(500);
 			e.printStackTrace();
 			if (result == null)
 				result = new DataInsertResponseInfo();
 			result.setResultCode(ModuleService.STATUS_VALIDATION_ERROR);
+			Map<String,String> mesg=  new HashMap<String, String>();
+			mesg.put("msg", e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
+			response.setStatus(500);
 			if (result == null)
 				result = new DataInsertResponseInfo();
 			result.getErrorMessage().put("error", e.getMessage());
 			result.setResultCode(ModuleService.STATUS_FAILURE);
 		}
+		
+		
+		
 		return result;
 	}
 

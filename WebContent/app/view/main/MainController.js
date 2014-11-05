@@ -40,7 +40,6 @@ Ext.define('app.view.main.MainController', {
             			return ;
             		}
             	}
-				
 				maincenter.setActiveTab(maincenter.add({
 							xtype : 'modulepanel',
 							title:menuitem.moduleName,
